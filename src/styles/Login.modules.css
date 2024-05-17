@@ -1,0 +1,22 @@
+.login-txt {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.form-login {
+    margin-inline: 200px;
+    padding-inline: 100px;
+}
+
+.form-border {
+    border-color:black;
+    border-radius: 20px;
+}
+
+.login-ft{
+    text-align: center;
+}
+
+.register-txt {
+    color: #0dcaf0;
+}

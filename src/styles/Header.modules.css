@@ -1,0 +1,78 @@
+* {
+    font-family: "Outfit";
+    font-weight: bold;
+}
+
+.header-color {
+    background-color: #011C26;
+}
+
+img {
+    height: 60px;
+    width: 60px;
+}
+
+.header-specs {
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+.logo {
+    flex: 1;
+}
+
+.search-flex {
+    flex: 1;
+    margin: auto;
+}
+
+.span-logo {
+    color: #fff;
+    font-size: 28px;
+}
+
+.header-search {
+    display: inline-block;
+    flex: 1;
+    background-color: #fff;
+    border: solid 1px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+textarea, input { outline: none; }
+
+.input-search {
+    background-color: transparent;
+    padding-left: 5px;
+    font-weight: bold;
+    border: none;
+    height: 32px;
+    width: 95%;
+}
+
+.search-icon {
+    float: right;
+}
+
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color:#fff;
+}
+
+.login {
+    margin: auto;
+    color: #fff;
+}
+
+.dropdown-custom {
+    
+}
+
+.dropdown-item-custom {
+    color: #000000 !important; /* Escolha a cor que você deseja */
+}
+
+.menu-custom {
+    background-color: #a0c9d9 !important;
+}
