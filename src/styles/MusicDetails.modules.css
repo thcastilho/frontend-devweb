@@ -1,0 +1,25 @@
+.post-review {
+    padding-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.post-review img {
+    height: 350px;
+    width: 350px;
+}
+
+.topic{
+    color: #6A95A6;
+}
+
+.post-title {
+    font-size: xx-large;
+    color: black;
+}
+
+.avaliacoes-title {
+    font-size: x-large;
+    color:#6A95A6;
+}

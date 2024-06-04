@@ -1,20 +1,24 @@
 import React from 'react';
-import Footer from '../components/Footer.js';
-import singleData from '../data/single-data.json'
-import musicData from '../data/album-data.json';
+import data from "../data/post-data.json"
 import '../styles/Home.modules.css'
 import { Rating } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
+    const singles = data.filter(item => item.categoria === 0)
+    const albuns = data.filter(item => item.categoria === 1)
+
     return (
         <>
             <div className="container">
                 <h1 className="title">Novas músicas</h1>
                 <div className="music-container">
-                    {singleData.map(item => (
+                    {singles.map(item => (
                         <div key={item.id} className="music-item">
                             <img src={item.image} alt={item.name} />
-                            <p className="music-name">{item.name}</p>
+                            <Link to={`/post/${item.id}`} >
+                                <p className="music-name">{item.name}</p>
+                            </Link>
                             <p>{item.artist}</p>
                             <Rating
                                 value={item.avgStars}
@@ -27,10 +31,12 @@ export default function Home() {
                 </div>
                 <h1 className="title">Novos álbuns</h1>
                 <div className="music-container">
-                    {musicData.map(item => (
+                    {albuns.map(item => (
                         <div key={item.id} className="music-item">
                             <img src={item.image} alt={item.name} />
-                            <p className="music-name">{item.name}</p>
+                            <Link to={`/post/${item.id}`} >
+                                <p className="music-name">{item.name}</p>
+                            </Link>
                             <p>{item.artist}</p>
                             <Rating
                                 value={item.avgStars}
@@ -43,7 +49,6 @@ export default function Home() {
                 </div>
                 <p></p>
             </div>
-            <Footer />
         </>
     );
 }

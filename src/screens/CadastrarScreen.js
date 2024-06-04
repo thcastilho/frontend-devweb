@@ -3,7 +3,6 @@ import axios from "axios";
 import { Form } from "react-bootstrap";
 import "../styles/Register.modules.css"
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
 
 export default function CadastrarScreen() {
     const [username, setUsername] = useState("");
@@ -97,7 +96,6 @@ export default function CadastrarScreen() {
                     </div>
                 </Form>
             </div>
-            <Footer />
         </>
     );
 }

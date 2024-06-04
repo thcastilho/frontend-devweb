@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "artist": "Martin Garrix, Dua Lipa",
+        "name": "Scared to Be Lonely",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/pt/thumb/3/35/Scared_to_Be_Lonely.jpg/220px-Scared_to_Be_Lonely.jpg",
+        "avgStars": 5,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 0
+    },
+    {
+        "id": 2,
+        "artist": "Offset, Metro Boomin",
+        "name": "Ric Flair Drip",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Ric_Flair_Drip_-_Offset_and_Metro_Boomin.jpeg/220px-Ric_Flair_Drip_-_Offset_and_Metro_Boomin.jpeg",
+        "avgStars": 3.5,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 0
+    },
+    {
+        "id": 3,
+        "artist": "Charlie Puth",
+        "name": "Attention",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Attention_%28Charlie_Puth_song%29_single_cover.svg/1200px-Attention_%28Charlie_Puth_song%29_single_cover.svg.png",
+        "avgStars": 4,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 0
+    },
+    {
+        "id": 4,
+        "artist": "Matuê",
+        "name": "Quer Voar",
+        "lancamento":"01/01/2000",
+        "image": "https://pbs.twimg.com/media/E8dxhHDXMAMRU-k?format=jpg&name=4096x4096",
+        "avgStars": 4,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 0
+    },
+    {
+        "id": 5,
+        "artist": "Teto, Matuê",
+        "name": "M4",
+        "lancamento":"01/01/2000",
+        "image": "https://cdns-images.dzcdn.net/images/cover/e100916aab9c8e54275f77485ebc5fcc/500x500.jpg",
+        "avgStars": 4.5,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 0
+    },
+    {
+        "id": 6,
+        "artist": "The Weeknd",
+        "name": "Starboy",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/pt/3/39/The_Weeknd_-_Starboy.png",
+        "avgStars": 3.5,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 1
+    },
+    {
+        "id": 7,
+        "artist": "Tyler the Creator",
+        "name": "Igor",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/pt/e/e9/Tyler_The_Creator_-_Igor.jpg",
+        "avgStars": 4.5,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 1
+    },
+    {
+        "id": 8,
+        "artist": "Linkin Park",
+        "name": "Hybrid Theory",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/en/2/2a/Linkin_Park_Hybrid_Theory_Album_Cover.jpg?20200315000419",
+        "avgStars": 5,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 1
+    },
+    {
+        "id": 9,
+        "artist": "Deftones",
+        "name": "Around the Fur",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/21/Deftones_-_Around_the_Fur.jpg/220px-Deftones_-_Around_the_Fur.jpg",
+        "avgStars": 4,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 1
+    },
+    {
+        "id": 10,
+        "artist": "System of a Down",
+        "name": "Steal This Album",
+        "lancamento":"01/01/2000",
+        "image": "https://upload.wikimedia.org/wikipedia/en/4/45/StealThisAlbum.png",
+        "avgStars": 4.5,
+        "generos": "Rock, Rap, Pop",
+        "categoria": 1
+    }
+]

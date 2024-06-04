@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import "../styles/Login.modules.css"
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
 
 export default function LoginScreen() {
     const [username, setUsername] = useState("");
@@ -69,7 +68,6 @@ export default function LoginScreen() {
                     </div>
                 </Form>
             </div>
-            <Footer />
         </>
     );
 }
