@@ -12,7 +12,6 @@ import ErrorScreen from "./screens/ErrorScreen"
 import CadastrarScreen from './screens/CadastrarScreen';
 import UserData from './screens/UserData';
 import AdminPanel from './screens/AdminPanel';
-import Logout from './screens/Logout';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -24,26 +23,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />
       },
-      /*{
-        path: "sobre",
-        element: <About name="produto 1" />
-      },
-      {
-        path: "comprar",
-        element: <Comprar />
-      },
-      {
-        path: "sobrenos",
-        element: <SobreNos />
-      },
-      {
-        path: "itensapi",
-        element: <ItensAPI />
-      },
-      {
-        path: "itensapi/:id",
-        element: <ItemDetails />
-      },*/
       {
         path: "/login",
         element: <LoginScreen />
@@ -53,26 +32,14 @@ const router = createBrowserRouter([
         element: <CadastrarScreen />
       },
       {
-        path: "/my-data",
+        path: "/profile",
         element: <UserData />
       },
       {
-        path: "/logout",
-        element: <Logout />
-      },
-      {
-        path: "/admin-panel",
+        path: "admin-panel",
         element: <AdminPanel />
       }
       /*,
-      {
-        path: "/generos",
-        element: <GeneroScreen />
-      },
-      {
-        path: "/searchgenero",
-        element: <SearchGeneros />
-      },
       {
         path: "oldpage",
         element: <Navigate to="/" />

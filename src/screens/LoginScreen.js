@@ -4,14 +4,12 @@ import "../styles/Login.modules.css"
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
 
 export default function LoginScreen() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +26,6 @@ export default function LoginScreen() {
             console.log("Login realizado com sucesso! Token salvo em armazenamento local: ", token);
             setSuccessMessage("Login realizado com sucesso!")
             setErrorMessage("")
-            navigate('/')
         } catch (error) {
             console.error("Erro: ", error);
             setErrorMessage("Invalid username or password");

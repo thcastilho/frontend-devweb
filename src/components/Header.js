@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react'
 import Logo from '../images/logo.png'
 import '../styles/Header.modules.css'
 import { Link } from 'react-router-dom'
 import { Nav, Navbar, Container, Dropdown } from 'react-bootstrap'
-import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export default function Header() {
@@ -19,15 +19,15 @@ export default function Header() {
                 },
                 responseType: "json"
             })
-            .then(response => {
-                setLogin(response.data.login)
-                setRole(response.data.role)
-                console.log(response.data.login)
-                console.log(response.data.role)
-            })
-            .catch(error => {
-                console.error('Erro ao buscar informações do usuário', error);
-            });
+                .then(response => {
+                    setLogin(response.data.login)
+                    setRole(response.data.role)
+                    console.log(response.data.login)
+                    console.log(response.data.role)
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar informações do usuário', error);
+                });
         }
     }, []);
 
@@ -37,7 +37,7 @@ export default function Header() {
                 <Container>
                     <Navbar.Brand className="logo">
                         <Nav.Link as={Link} to="/">
-                            <img src={Logo} alt="musicbox logo"/>
+                            <img src={Logo} alt="musicbox logo" />
                             <span className="span-logo">musicbox</span>
                         </Nav.Link>
                     </Navbar.Brand>

@@ -1,0 +1,25 @@
+.title {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.music-container {
+    display: flex;
+}
+
+.music-item {
+    flex: 1;
+}
+
+.music-container img{
+    height: 200px;
+    width: 200px;
+}
+
+.music-container p {
+    margin: 0;
+}
+
+.music-name {
+    font-size: x-large;
+}
