@@ -24,3 +24,8 @@
     object-fit: cover;
     margin-bottom: 20px;
 }
+
+.edit-buttons {
+    margin-top: 10px;
+    margin-right: 10px;
+}
