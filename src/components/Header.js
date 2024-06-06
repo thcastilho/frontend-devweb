@@ -64,7 +64,7 @@ export default function Header() {
                         ) : (
                             <Nav.Link as={Link} to="/login">
                                 <i className="bi bi-person-circle"></i>
-                                <span> Login</span>
+                                <span> Entre ou cadastre-se</span>
                             </Nav.Link>
                         )}
                     </div>

@@ -9,6 +9,7 @@ export default function CadastrarScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [gender, setGender] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
@@ -20,11 +21,14 @@ export default function CadastrarScreen() {
             return;
         }
 
+        const genderValue = gender === "Homem" ? "HOMEM" : gender === "Mulher" ? "MULHER" : "NAO_INFORMADO";
+
         const request_body = {
             "login": username,
             "email": email,
             "password": password,
-            "role": "ADMIN"
+            "sexo": genderValue,
+            "role": "USER"
         }
 
         try {
@@ -66,6 +70,21 @@ export default function CadastrarScreen() {
                             required
                             className="form-control form-border"
                         />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="gender" className="form-label">Gênero: </label>
+                        <select
+                            id="gender"
+                            value={gender}
+                            onChange={(e) => setGender(e.target.value)}
+                            required
+                            className="form-control form-border"
+                        >
+                            <option value="" disabled>Selecione seu gênero</option>
+                            <option value="Homem">Homem</option>
+                            <option value="Mulher">Mulher</option>
+                            <option value="Prefiro não informar">Prefiro não informar</option>
+                        </select>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Senha: </label>

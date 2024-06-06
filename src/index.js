@@ -12,6 +12,7 @@ import ErrorScreen from "./screens/ErrorScreen"
 import CadastrarScreen from './screens/CadastrarScreen';
 import UserData from './screens/UserData';
 import AdminPanel from './screens/AdminPanel';
+import Logout from './screens/Logout';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import MusicDetails from './screens/MusicDetails';
 
@@ -43,6 +44,18 @@ const router = createBrowserRouter([
       {
         path:"/post/:id",
         element: <MusicDetails />
+      },
+      {
+        path: "/my-data",
+        element: <UserData />
+      },
+      {
+        path: "/logout",
+        element: <Logout />
+      },
+      {
+        path: "/admin-panel",
+        element: <AdminPanel />
       }
       /*,
       {
