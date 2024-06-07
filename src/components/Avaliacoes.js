@@ -2,35 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { Rating } from '@mui/material';
 import Resposta from './Resposta';
-import axios from 'axios';
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 const Avaliacoes = ({ avaliacoes }) => {
-    const [userData, setUserData] = useState("")
     const [showReplyBox, setShowReplyBox] = useState(null);
     const [replyText, setReplyText] = useState('');
     const [respostas, setRespostas] = useState({});
-    const [errorMessage, setErrorMessage] = useState()
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-
-        if (token) {
-            axios.get('http://localhost:8080/usuarios/me', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                responseType: "json"
-            })
-                .then(response => {
-                    setUserData(response.data);
-                    setErrorMessage("");
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar informações do usuário', error);
-                    setErrorMessage('Erro ao buscar informações do usuário');
-                });
-        }
-    }, []);
+    const [profileImageUrl, setProfileImageUrl] = useState("")
+    const { currentUser } = useAuth()
+    const navigate = useNavigate()
 
     const getProfileImageUrl = (gender) => {
         if (gender === "HOMEM") {
@@ -45,17 +26,24 @@ const Avaliacoes = ({ avaliacoes }) => {
         }
     }
 
-    const profileImageUrl = getProfileImageUrl(userData.sexo);
-
+    useEffect(() => {
+        if(currentUser) {
+            setProfileImageUrl(getProfileImageUrl(currentUser.sexo))
+        }
+    }, [currentUser])
 
     const handleReplyClick = (itemId) => {
-        setShowReplyBox(itemId);
+        if(currentUser) {
+            setShowReplyBox(itemId);
+        } else {
+            navigate("/login")
+        }
     };
 
     const handleReplySubmit = (itemId) => {
         if (replyText.trim() !== '') {
             const newReply = {
-                user: userData.login,
+                user: currentUser.login,
                 text: replyText,
                 date: new Date().toLocaleDateString(),
                 fotoPerfil: profileImageUrl

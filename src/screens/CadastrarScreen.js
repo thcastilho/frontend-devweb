@@ -110,8 +110,10 @@ export default function CadastrarScreen() {
                     </div>
                     <div className="registrar-ft">
                         <button type="submit" className="btn btn-outline-info">Sign Up</button><br />
-                        <span>Já possui uma conta? </span>
-                        <Link to="/login"><span className="entrar-txt">Entrar</span></Link>
+                        <p>
+                            Já possui uma conta? 
+                            <Link to="/login"><span className="entrar-txt"> Entrar</span></Link>
+                        </p>
                     </div>
                 </Form>
             </div>
