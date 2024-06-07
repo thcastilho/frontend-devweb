@@ -43,6 +43,7 @@ const Avaliacoes = ({ avaliacoes }) => {
     const handleReplySubmit = (itemId) => {
         if (replyText.trim() !== '') {
             const newReply = {
+                id: 10,
                 user: currentUser.login,
                 text: replyText,
                 date: new Date().toLocaleDateString(),

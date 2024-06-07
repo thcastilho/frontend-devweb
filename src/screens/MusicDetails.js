@@ -1,18 +1,58 @@
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap"
 import data from "../data/post-data.json"
 import avaliacoes from "../data/avaliacoes-data.json"
 import "../styles/MusicDetails.modules.css"
 import { Rating } from "@mui/material";
 import Avaliacoes from "../components/Avaliacoes";
+import { useAuth } from "../contexts/AuthContext";
+import ReviewForm from "../components/ReviewForm";
 
 export default function MusicDetails() {
     const { id } = useParams()
     const item = data.find(item => item.id === parseInt(id));
+    const [showForm, setShowForm] = useState(false);
+    const [reviews, setReviews] = useState(avaliacoes)
+    const [profileImageUrl, setProfileImageUrl] = useState("")
+    const { currentUser } = useAuth();
+    const navigate = useNavigate();
+
+    const getProfileImageUrl = (gender) => {
+        if (gender === "HOMEM") {
+            return "https://avatar.iran.liara.run/public/boy";
+            // return "https://xsgames.co/randomusers/avatar.php?g=male"
+        } else if (gender === "MULHER") {
+            return "https://avatar.iran.liara.run/public/girl";
+            // return "https://xsgames.co/randomusers/avatar.php?g=female"
+        } else {
+            return "https://avatar.iran.liara.run/public";
+            // return "https://xsgames.co/randomusers/avatar.php?g=pixel"
+        }
+    }
+
+    useEffect(() => {
+        if (currentUser) {
+            setProfileImageUrl(getProfileImageUrl(currentUser.sexo))
+        }
+    }, [currentUser])
 
     if (!item) {
         return <div>Music not found</div>;
     }
+
+    const handleReviewClick = () => {
+        if (currentUser) {
+            setShowForm(true);
+        } else {
+            navigate("/login");
+        }
+    };
+
+    const handleNewReview = (newReview) => {
+        setReviews(prevReviews => [...prevReviews, newReview])
+        setShowForm(false);
+    };
 
     return (
         <>
@@ -41,9 +81,13 @@ export default function MusicDetails() {
                     </div>
                 </div>
                 <div className="avaliacoes">
-                    <p className="avaliacoes-title">Avaliações</p>
+                    <button className="avaliacoes-title btn-review" onClick={handleReviewClick}>
+                        Faça uma avaliação
+                    </button>
+                    {showForm && <ReviewForm onNewReview={handleNewReview} profileImageUrl={profileImageUrl} />}
+                    <p className="avaliacoes-title" style={{ paddingTop: "16px" }}>Avaliações</p>
                 </div>
-                <Avaliacoes avaliacoes={avaliacoes} />
+                <Avaliacoes avaliacoes={reviews} />
             </Container>
         </>
     )

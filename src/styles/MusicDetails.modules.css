@@ -21,7 +21,16 @@
 
 .avaliacoes-title {
     font-size: x-large;
-    color: #6A95A6;
+    color: #6A95A6 !important;
+}
+
+.btn-review {
+    border: none;
+    background-color: #fff;
+}
+
+.btn-review:hover {
+    color: #1266f1 !important;
 }
 
 .link-muted {
