@@ -6,7 +6,8 @@
         "numDislikes": 9,
         "publishDate": "04/06/2024",
         "numStars": 3,
-        "user": "Pedro"
+        "user": "Pedro",
+        "fotoPerfil": "https://avatar.iran.liara.run/public/30"
     },
     {
         "id": 2,
@@ -15,7 +16,8 @@
         "numDislikes": 9,
         "publishDate": "04/06/2024",
         "numStars": 3,
-        "user": "Bruce"
+        "user": "Bruce",
+        "fotoPerfil": "https://avatar.iran.liara.run/public/31"
     },
     {
         "id": 3,
@@ -24,7 +26,8 @@
         "numDislikes": 9,
         "publishDate": "04/06/2024",
         "numStars": 2,
-        "user": "Thiago"
+        "user": "Thiago",
+        "fotoPerfil": "https://avatar.iran.liara.run/public/32"
     },
     {
         "id": 4,
@@ -33,7 +36,8 @@
         "numDislikes": 9,
         "publishDate": "04/06/2024",
         "numStars": 4.5,
-        "user": "Cesar"
+        "user": "Cesar",
+        "fotoPerfil": "https://avatar.iran.liara.run/public/33"
     },
     {
         "id": 5,
@@ -42,6 +46,7 @@
         "numDislikes": 9,
         "publishDate": "04/06/2024",
         "numStars": 3.5,
-        "user": "Gil"
+        "user": "Gil",
+        "fotoPerfil": "https://avatar.iran.liara.run/public/34"
     }
 ]

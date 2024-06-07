@@ -4,6 +4,7 @@ import data from "../data/post-data.json"
 import avaliacoes from "../data/avaliacoes-data.json"
 import "../styles/MusicDetails.modules.css"
 import { Rating } from "@mui/material";
+import Avaliacoes from "../components/Avaliacoes";
 
 export default function MusicDetails() {
     const { id } = useParams()
@@ -42,6 +43,7 @@ export default function MusicDetails() {
                 <div className="avaliacoes">
                     <p className="avaliacoes-title">Avaliações</p>
                 </div>
+                <Avaliacoes avaliacoes={avaliacoes} />
             </Container>
         </>
     )
