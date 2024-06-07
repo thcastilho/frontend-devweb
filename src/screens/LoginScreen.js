@@ -36,8 +36,8 @@ export default function LoginScreen() {
         <>
             <div className="container">
                 <h1 className="login-txt">Login</h1>
-                {errorMessage ? <p>{errorMessage}</p> : ""}
-                {successMessage && <p>{successMessage}</p>}
+                {errorMessage ? <p style={{textAlign: "center"}}>{errorMessage}</p> : ""}
+                {successMessage && <p style={{textAlign: "center"}}>{successMessage}</p>}
                 <Form onSubmit={handleSubmit} className="form-login">
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">Username:</label>

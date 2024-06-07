@@ -136,8 +136,8 @@ export default function UserData() {
                             <h2>Meus Dados</h2>
                         </Card.Header>
                         <Card.Body>
-                            {errorMessage && <p className="text-danger">{errorMessage}</p>}
-                            {successMessage && <p className="text-success">{successMessage}</p>}
+                            {errorMessage && <p className="text-danger" style={{textAlign: "center"}}>{errorMessage}</p>}
+                            {successMessage && <p className="text-success" style={{textAlign: "center"}}>{successMessage}</p>}
                             {!editMode ? (
                                 <Row>
                                     <Col md={4} className="text-center">

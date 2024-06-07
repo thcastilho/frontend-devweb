@@ -1,26 +1,26 @@
 import React from "react";
 import { MDBCardBody, MDBIcon } from "mdb-react-ui-kit";
 
-const Resposta = ({ text }) => {
+const Resposta = ({ user, text, date, fotoPerfil }) => {
+    if (!text) return null;
+
     return (
         <>
             <MDBCardBody>
                 <div>
-                    <a className="me-3" href="#">
-                        <img
-                            className="rounded-circle shadow-1-strong me-3"
-                            src="https://avatar.iran.liara.run/public/38"
-                            alt="avatar"
-                            width="65"
-                            height="65"
-                        />
-                    </a>
+                    <img
+                        className="rounded-circle shadow-1-strong me-3"
+                        src={fotoPerfil}
+                        alt="avatar"
+                        width="65"
+                        height="65"
+                    />
 
                     <div>
                         <div className="d-flex justify-content-between align-items-center">
                             <p className="mb-1">
-                                Simona Disa
-                                <span className="small"> - 11/12/13</span>
+                                {user}
+                                <span className="small"> - {date}</span>
                             </p>
                         </div>
                         <div>
