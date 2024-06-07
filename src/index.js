@@ -12,10 +12,11 @@ import ErrorScreen from "./screens/ErrorScreen"
 import CadastrarScreen from './screens/CadastrarScreen';
 import UserData from './screens/UserData';
 import AdminPanel from './screens/AdminPanel';
-import Logout from './screens/Logout';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import MusicDetails from './screens/MusicDetails';
-
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 
 const router = createBrowserRouter([
   {
@@ -49,10 +50,6 @@ const router = createBrowserRouter([
       {
         path: "/my-data",
         element: <UserData />
-      },
-      {
-        path: "/logout",
-        element: <Logout />
       },
       {
         path: "/admin-panel",
