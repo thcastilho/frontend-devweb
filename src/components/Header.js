@@ -1,35 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Logo from '../images/logo.png'
 import '../styles/Header.modules.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Nav, Navbar, Container, Dropdown } from 'react-bootstrap'
-import axios from 'axios'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Header() {
-    const [login, setLogin] = useState("")
-    const [role, setRole] = useState("")
+    const { currentUser, logout } = useAuth()
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-
-        if (token) {
-            axios.get('http://localhost:8080/usuarios/me', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                responseType: "json"
-            })
-                .then(response => {
-                    setLogin(response.data.login)
-                    setRole(response.data.role)
-                    console.log(response.data.login)
-                    console.log(response.data.role)
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar informações do usuário', error);
-                });
-        }
-    }, []);
+    const handleLogout = () => {
+        logout();
+        navigate("/login");
+    };
 
     return (
         <>
@@ -48,17 +31,17 @@ export default function Header() {
                         </form>
                     </div>
                     <div className="login">
-                        {login ? (
+                        {currentUser ? (
                             <Dropdown>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" className='dropdown-custom'>
-                                    Olá, {login}
+                                    Olá, {currentUser.login}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='menu-custom'>
-                                    {role === 'ADMIN' && (
+                                    {currentUser.role === 'ADMIN' && (
                                         <Dropdown.Item as={Link} to="/admin-panel" className="dropdown-item-custom">Painel Admin</Dropdown.Item>
                                     )}
                                     <Dropdown.Item as={Link} to="/my-data" className="dropdown-item-custom">Meus Dados</Dropdown.Item>
-                                    <Dropdown.Item as={Link} to="/logout" className="dropdown-item-custom">Sair</Dropdown.Item>
+                                    <Dropdown.Item className="dropdown-item-custom" onClick={handleLogout}>Sair</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         ) : (
