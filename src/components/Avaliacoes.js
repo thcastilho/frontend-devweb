@@ -4,6 +4,7 @@ import { Rating } from '@mui/material';
 import Resposta from './Resposta';
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Avaliacoes = ({ avaliacoes }) => {
     const [showReplyBox, setShowReplyBox] = useState(null);
@@ -12,6 +13,25 @@ const Avaliacoes = ({ avaliacoes }) => {
     const [profileImageUrl, setProfileImageUrl] = useState("")
     const { currentUser } = useAuth()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchRespostas = async () => {
+            try {
+                const respostasData = await Promise.all(
+                    avaliacoes.map(async (item) => {
+                        const response = await axios.get(`http://localhost:8080/comentarios/${item.id}/respostas`);
+                        return { [item.id]: response.data };
+                    })
+                );
+                const respostasObj = respostasData.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+                setRespostas(respostasObj);
+            } catch (error) {
+                console.error("Erro ao carregar respostas: ", error);
+            }
+        };
+
+        fetchRespostas();
+    }, [avaliacoes]);
 
     const getProfileImageUrl = (gender) => {
         if (gender === "HOMEM") {
@@ -27,35 +47,43 @@ const Avaliacoes = ({ avaliacoes }) => {
     }
 
     useEffect(() => {
-        if(currentUser) {
+        if (currentUser) {
             setProfileImageUrl(getProfileImageUrl(currentUser.sexo))
         }
     }, [currentUser])
 
     const handleReplyClick = (itemId) => {
-        if(currentUser) {
+        if (currentUser) {
             setShowReplyBox(itemId);
         } else {
             navigate("/login")
         }
     };
 
-    const handleReplySubmit = (itemId) => {
+    const handleReplySubmit = async (itemId) => {
         if (replyText.trim() !== '') {
             const newReply = {
-                id: 10,
-                user: currentUser.login,
                 text: replyText,
-                date: new Date().toLocaleDateString(),
-                fotoPerfil: profileImageUrl
+                // publishDate: new Date().toLocaleDateString(),
             };
 
-            setRespostas(prevState => ({
-                ...prevState,
-                [itemId]: [...(prevState[itemId] || []), newReply]
-            }));
-            setReplyText('');
-            setShowReplyBox(null);
+            try {
+                const token = localStorage.getItem("token")
+                const response = await axios.post(`http://localhost:8080/comentarios/resposta/${itemId}`, newReply, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+                const savedReply = response.data
+
+                setRespostas(prevState => ({
+                    ...prevState,
+                    [itemId]: [...(prevState[itemId] || []), savedReply]
+                }));
+                setReplyText('');
+                setShowReplyBox(null);
+            } catch (error) {
+                console.error("Erro ao enviar resposta. ", error)
+            }
+
         }
     };
 
@@ -75,7 +103,7 @@ const Avaliacoes = ({ avaliacoes }) => {
                             <MDBCard className="w-100">
                                 <MDBCardBody className="p-4">
                                     <div>
-                                        <MDBTypography tag="h5">{item.user}</MDBTypography>
+                                        <MDBTypography tag="h5">{item.criadoPor}</MDBTypography>
                                         <Rating
                                             value={item.numStars}
                                             precision={0.5}
@@ -115,7 +143,7 @@ const Avaliacoes = ({ avaliacoes }) => {
                                         {respostas[item.id] && respostas[item.id].map((resposta, index) => (
                                             <Resposta
                                                 key={index}
-                                                user={resposta.user}
+                                                user={resposta.criadoPor}
                                                 text={resposta.text}
                                                 date={resposta.date}
                                                 fotoPerfil={resposta.fotoPerfil}

@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap"
-import data from "../data/post-data.json"
-import avaliacoes from "../data/avaliacoes-data.json"
 import "../styles/MusicDetails.modules.css"
 import { Rating } from "@mui/material";
 import Avaliacoes from "../components/Avaliacoes";
 import { useAuth } from "../contexts/AuthContext";
 import ReviewForm from "../components/ReviewForm";
+import axios from "axios";
 
 export default function MusicDetails() {
     const { id } = useParams()
-    const item = data.find(item => item.id === parseInt(id));
     const [showForm, setShowForm] = useState(false);
-    const [reviews, setReviews] = useState(avaliacoes)
+    const [reviews, setReviews] = useState([])
     const [profileImageUrl, setProfileImageUrl] = useState("")
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/posts/${id}`)
+            .then(response =>
+                setData(response.data)
+            )
+            .catch(error =>
+                console.error("Erro ao buscar post. ", error)
+            )
+
+        axios.get(`http://localhost:8080/comentarios/${id}/avaliacoes`)
+            .then(response =>
+                setReviews(response.data)
+            )
+            .catch(error =>
+                console.error("Erro ao buscar avaliações. ", error)
+            )
+    }, [id])
 
     const getProfileImageUrl = (gender) => {
         if (gender === "HOMEM") {
@@ -37,7 +54,7 @@ export default function MusicDetails() {
         }
     }, [currentUser])
 
-    if (!item) {
+    if (!data) {
         return <div>Music not found</div>;
     }
 
@@ -49,30 +66,41 @@ export default function MusicDetails() {
         }
     };
 
-    const handleNewReview = (newReview) => {
-        setReviews(prevReviews => [...prevReviews, newReview])
-        setShowForm(false);
+    const handleNewReview = async (newReview) => {
+        try {
+            const token = localStorage.getItem("token")
+            const response = await axios.post(`http://localhost:8080/comentarios/avaliacao/${id}`, newReview, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            const savedReview = response.data
+
+            setReviews(prevReviews => [...prevReviews, savedReview])
+            setShowForm(false);
+        } catch (error) {
+            console.error("Erro ao fazer avaliação. ", error)
+        }
+
     };
 
     return (
         <>
             <Container>
                 <div className="post-review">
-                    <img src={item.image} alt="Music cover" />
+                    <img src={data.image} alt="Music cover" />
                     <div className="post-description">
-                        <p className="post-title">{item.name}</p>
+                        <p className="post-title">{data.name}</p>
                         <span className="topic">Artista</span>
-                        <p>{item.artist}</p>
+                        <p>{data.artist}</p>
                         <span className="topic">Categoria</span>
-                        {item.categoria === 0 ? <p>Single</p> : <p>Álbum</p>}
+                        {data.categoria === "MUSICA" ? <p>Single</p> : <p>Álbum</p>}
                         <span className="topic">Data de lançamento</span>
-                        <p>{item.lancamento}</p>
+                        <p>{data.lancamento}</p>
                         <span className="topic">Generos</span>
-                        <p>{item.generos}</p>
+                        <p>{data.generos}</p>
                         <span className="topic">Avaliação média</span>
                         <p>
                             <Rating
-                                value={item.avgStars}
+                                value={data.avgStars}
                                 precision={0.5}
                                 readOnly
                                 max={5}
@@ -85,7 +113,7 @@ export default function MusicDetails() {
                         Faça uma avaliação
                     </button>
                     {showForm && <ReviewForm onNewReview={handleNewReview} profileImageUrl={profileImageUrl} />}
-                    <p className="avaliacoes-title" style={{ paddingTop: "16px" }}>Avaliações</p>
+                    <p className="avaliacoes-title" style={{ paddingTop: "16px" }}>{reviews.length} Avaliações</p>
                 </div>
                 <Avaliacoes avaliacoes={reviews} />
             </Container>

@@ -11,11 +11,10 @@ const ReviewForm = ({ onNewReview, profileImageUrl }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onNewReview({
-            user: currentUser.login,
             text,
             numStars: rating,
-            publishDate: new Date().toLocaleDateString(),
-            fotoPerfil: profileImageUrl
+            // publishDate: new Date().toLocaleDateString(),
+            // fotoPerfil: profileImageUrl
         });
         setText("");
         setRating(0);

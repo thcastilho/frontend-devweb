@@ -1,20 +1,33 @@
-import React from 'react';
-import data from "../data/post-data.json"
+import React, { useState, useEffect } from 'react';
 import '../styles/Home.modules.css'
 import { Rating } from '@mui/material';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Col, Row } from 'react-bootstrap';
 
 export default function Home() {
-    const singles = data.filter(item => item.categoria === 0)
-    const albuns = data.filter(item => item.categoria === 1)
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/posts/")
+            .then(response =>
+                setData(response.data)
+            )
+            .catch(error =>
+                console.error("Erro ao buscar posts. ", error)
+            )
+    }, [])
+
+    const singles = data.filter(item => item.categoria === "MUSICA")
+    const albuns = data.filter(item => item.categoria === "ALBUM")
 
     return (
         <>
             <div className="container">
                 <h1 className="title">Novas músicas</h1>
-                <div className="music-container">
+                <Row className="music-container">
                     {singles.map(item => (
-                        <div key={item.id} className="music-item">
+                        <Col key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
                             <img src={item.image} alt={item.name} />
                             <Link to={`/post/${item.id}`} >
                                 <p className="music-name">{item.name}</p>
@@ -26,13 +39,13 @@ export default function Home() {
                                 readOnly
                                 max={5}
                             />
-                        </div>
+                        </Col>
                     ))}
-                </div>
+                </Row>
                 <h1 className="title">Novos álbuns</h1>
-                <div className="music-container">
+                <Row className="music-container">
                     {albuns.map(item => (
-                        <div key={item.id} className="music-item">
+                        <Col key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
                             <img src={item.image} alt={item.name} />
                             <Link to={`/post/${item.id}`} >
                                 <p className="music-name">{item.name}</p>
@@ -44,9 +57,9 @@ export default function Home() {
                                 readOnly
                                 max={5}
                             />
-                        </div>
+                        </Col>
                     ))}
-                </div>
+                </Row>
                 <p></p>
             </div>
         </>
