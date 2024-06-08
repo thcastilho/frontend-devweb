@@ -17,6 +17,8 @@ import MusicDetails from './screens/MusicDetails';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import CriarPost from './screens/CriarPost';
+import CriarGenero from './screens/CriarGenero';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
       {
         path: "/admin-panel",
         element: <AdminPanel />
+      },
+      {
+        path: "/criar-post",
+        element: <CriarPost />
+      },
+      {
+        path: "/criar-genero",
+        element: <CriarGenero />
       }
       /*,
       {

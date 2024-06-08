@@ -7,6 +7,7 @@ import Avaliacoes from "../components/Avaliacoes";
 import { useAuth } from "../contexts/AuthContext";
 import ReviewForm from "../components/ReviewForm";
 import axios from "axios";
+import { format } from "date-fns";
 
 export default function MusicDetails() {
     const { id } = useParams()
@@ -15,12 +16,16 @@ export default function MusicDetails() {
     const [profileImageUrl, setProfileImageUrl] = useState("")
     const { currentUser } = useAuth();
     const navigate = useNavigate();
-    const [data, setData] = useState([])
+    const [data, setData] = useState()
+    const [generos, setGeneros] = useState([])
 
     useEffect(() => {
         axios.get(`http://localhost:8080/posts/${id}`)
-            .then(response =>
+            .then(response => {
                 setData(response.data)
+                setGeneros(response.data.generos)
+                console.log(response.data.generos)
+            }
             )
             .catch(error =>
                 console.error("Erro ao buscar post. ", error)
@@ -94,9 +99,9 @@ export default function MusicDetails() {
                         <span className="topic">Categoria</span>
                         {data.categoria === "MUSICA" ? <p>Single</p> : <p>Álbum</p>}
                         <span className="topic">Data de lançamento</span>
-                        <p>{data.lancamento}</p>
+                        <p>{format(new Date(data.publishDate), 'dd/MM/yyyy')}</p>
                         <span className="topic">Generos</span>
-                        <p>{data.generos}</p>
+                        <p>{generos.map(genero => genero.name).join(', ')}</p>
                         <span className="topic">Avaliação média</span>
                         <p>
                             <Rating
