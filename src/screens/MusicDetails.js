@@ -79,6 +79,10 @@ export default function MusicDetails() {
             })
             const savedReview = response.data
 
+            const responsePost = await axios.get(`http://localhost:8080/posts/${id}`);
+            setData(responsePost.data)
+
+
             setReviews(prevReviews => [...prevReviews, savedReview])
             setShowForm(false);
         } catch (error) {
@@ -105,7 +109,7 @@ export default function MusicDetails() {
                         <span className="topic">Avaliação média</span>
                         <p>
                             <Rating
-                                value={data.avgStars}
+                                value={data.averageRating}
                                 precision={0.5}
                                 readOnly
                                 max={5}
