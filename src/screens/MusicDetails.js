@@ -24,7 +24,6 @@ export default function MusicDetails() {
             .then(response => {
                 setData(response.data)
                 setGeneros(response.data.generos)
-                console.log(response.data.generos)
             }
             )
             .catch(error =>

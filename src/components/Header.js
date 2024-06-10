@@ -1,17 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../images/logo.png'
 import '../styles/Header.modules.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { Nav, Navbar, Container, Dropdown } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
+import axios from 'axios'
 
 export default function Header() {
     const { currentUser, logout } = useAuth()
+    const [searchItem, setSearchItem] = useState("")
     const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
         navigate("/login");
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchItem(e.target.value)
+    }
+
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.get(`http://localhost:8080/posts?search=${searchItem}`);
+            if (response.data) {
+                navigate(`/post/${response.data.id}`);
+                setSearchItem("")
+            }
+        } catch (error) {
+            if(error.response && error.response.status === 404) {
+                alert("O post que você está tentando procurar não existe!")
+                setSearchItem("")
+            } else {
+                console.error("Erro ao buscar posts: ", error);
+            }
+        }
     };
 
     return (
@@ -25,9 +49,15 @@ export default function Header() {
                         </Nav.Link>
                     </Navbar.Brand>
                     <div className="search-flex">
-                        <form className="header-search">
-                            <input type="text" className="input-search" placeholder="Digite uma música ou álbum..."></input>
-                            <i className="bi bi-search"></i>
+                        <form className="header-search" onSubmit={handleSearchSubmit}>
+                            <input
+                                type="text"
+                                className="input-search"
+                                placeholder="Digite uma música ou álbum..."
+                                value={searchItem}
+                                onChange={handleSearchChange}
+                            />
+                            <i className="bi bi-search" onClick={handleSearchSubmit} style={{ cursor: 'pointer' }}></i>
                         </form>
                     </div>
                     <div className="login">
