@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Avaliacoes = ({ avaliacoes }) => {
+    const [reviews, setReviews] = useState(avaliacoes)
     const [showReplyBox, setShowReplyBox] = useState(null);
     const [replyText, setReplyText] = useState('');
     const [respostas, setRespostas] = useState({});
@@ -18,7 +19,7 @@ const Avaliacoes = ({ avaliacoes }) => {
         const fetchRespostas = async () => {
             try {
                 const respostasData = await Promise.all(
-                    avaliacoes.map(async (item) => {
+                    reviews.map(async (item) => {
                         const response = await axios.get(`http://localhost:8080/comentarios/${item.id}/respostas`);
                         return { [item.id]: response.data };
                     })
@@ -31,7 +32,7 @@ const Avaliacoes = ({ avaliacoes }) => {
         };
 
         fetchRespostas();
-    }, [avaliacoes]);
+    }, [reviews]);
 
     const getProfileImageUrl = (gender) => {
         if (gender === "HOMEM") {
@@ -87,11 +88,43 @@ const Avaliacoes = ({ avaliacoes }) => {
         }
     };
 
+    const handleLikeClick = async (itemId) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.put(`http://localhost:8080/usuarios/like/${itemId}`, null, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const updatedAvaliacao = response.data;
+
+            setReviews(prevAvaliacoes => prevAvaliacoes.map(item =>
+                item.id === itemId ? { ...item, numLikes: updatedAvaliacao.numLikes } : item
+            ));
+        } catch (error) {
+            console.error("Erro ao dar like: ", error);
+        }
+    };
+
+    const handleDislikeClick = async (itemId) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.put(`http://localhost:8080/usuarios/dislike/${itemId}`, null, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const updatedAvaliacao = response.data;
+
+            setReviews(prevAvaliacoes => prevAvaliacoes.map(item =>
+                item.id === itemId ? { ...item, numDislikes: updatedAvaliacao.numDislikes } : item
+            ));
+        } catch (error) {
+            console.error("Erro ao dar dislike: ", error);
+        }
+    };
+
     return (
         <section>
             <MDBRow>
                 <MDBCol>
-                    {avaliacoes.map(item => (
+                    {reviews.map(item => (
                         <div key={item.id} className="d-flex flex-start mb-4">
                             <img
                                 className="rounded-circle shadow-1-strong me-3"
@@ -114,11 +147,11 @@ const Avaliacoes = ({ avaliacoes }) => {
                                         <p>{item.text}</p>
                                         <div className="d-flex justify-content-between">
                                             <div className="d-flex align-items-center" style={{ gap: "5px" }}>
-                                                <a href="#!" className="link-muted me-2">
+                                                <a href="#!" className="link-muted me-2" onClick={() => handleLikeClick(item.id)}>
                                                     <MDBIcon fas icon="thumbs-up me-1" />
                                                     {item.numLikes}
                                                 </a>
-                                                <a href="#!" className="link-muted me-2">
+                                                <a href="#!" className="link-muted me-2" onClick={() => handleDislikeClick(item.id)}>
                                                     <MDBIcon fas icon="thumbs-down me-2" />
                                                     {item.numDislikes}
                                                 </a>
@@ -147,6 +180,9 @@ const Avaliacoes = ({ avaliacoes }) => {
                                                 text={resposta.text}
                                                 date={resposta.date}
                                                 fotoPerfil={resposta.fotoPerfil}
+                                                idResposta={resposta.id}
+                                                currNumLikes={resposta.numLikes}
+                                                currNumDislikes={resposta.numDislikes}
                                             />
                                         ))}
                                     </div>
