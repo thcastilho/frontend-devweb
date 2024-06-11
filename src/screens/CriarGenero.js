@@ -6,24 +6,45 @@ import { useAuth } from "../contexts/AuthContext"
 
 export default function CriarGenero() {
     const [nome, setNome] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
     const { currentUser } = useAuth()
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
         const request_body = {
             "name": nome,
         }
 
         try {
-            const token = localStorage.getItem("token")
+            const token = localStorage.getItem('token')
+
+            if (!token) {
+                console.error("Token não encontrado")
+                setErrorMessage("Token não encontrado")
+                setSuccessMessage("")
+                return
+            }
+
             await axios.post("http://localhost:8080/generos/", request_body, {
                 headers: { Authorization: `Bearer ${token}` }
             })
+
+            setSuccessMessage("Gênero criado com sucesso!")
+            setErrorMessage("")
         } catch (error) {
-            console.error("Erro ao criar genero. ", error)
+            if (error.response && error.response.status === 400) {
+                setErrorMessage("Um gênero com esse nome já está cadastrado.")
+            } else {
+                setErrorMessage("Erro ao criar gênero")
+            }
+            setSuccessMessage("")
+            console.error("Erro ao criar gênero: ", error)
         }
     }
     
-    if(!currentUser) return<></>
+    if (!currentUser) return <></>
 
     if (currentUser.role !== "ADMIN")
         return (
@@ -34,7 +55,6 @@ export default function CriarGenero() {
             </Container>
         )
 
-
     return (
         <Container style={{ paddingTop: "30px" }}>
             <section>
@@ -44,6 +64,8 @@ export default function CriarGenero() {
                             <MDBCardBody className="p-4">
                                 <div>
                                     <MDBTypography tag="h2">Criar novo gênero</MDBTypography>
+                                    {errorMessage && <p style={{ textAlign: "center" }}>{errorMessage}</p>}
+                                    {successMessage && <p style={{ textAlign: "center" }}>{successMessage}</p>}
                                     <Form onSubmit={handleSubmit}>
                                         <div className="mb-3">
                                             <label htmlFor="nome" className="form-label">Nome: </label>

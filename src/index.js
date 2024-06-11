@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@fontsource/outfit";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -15,8 +17,6 @@ import AdminPanel from './screens/AdminPanel';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import MusicDetails from './screens/MusicDetails';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap-css-only/css/bootstrap.min.css";
-import "mdbreact/dist/css/mdb.css";
 import CriarPost from './screens/CriarPost';
 import CriarGenero from './screens/CriarGenero';
 
