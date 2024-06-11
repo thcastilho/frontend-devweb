@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MDBCardBody, MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
+import { format } from "date-fns";
 
 const Resposta = ({ user, text, date, fotoPerfil, idResposta, currNumLikes, currNumDislikes }) => {
     const [numLikes, setNumLikes] = useState(currNumLikes)
@@ -15,6 +16,7 @@ const Resposta = ({ user, text, date, fotoPerfil, idResposta, currNumLikes, curr
                 headers: { Authorization: `Bearer ${token}` }
             });
             setNumLikes(response.data.numLikes);
+            setNumDislikes(response.data.numDislikes);
         } catch (error) {
             console.error("Erro ao dar like na resposta: ", error);
         }
@@ -27,6 +29,7 @@ const Resposta = ({ user, text, date, fotoPerfil, idResposta, currNumLikes, curr
                 headers: { Authorization: `Bearer ${token}` }
             });
             setNumDislikes(response.data.numDislikes);
+            setNumLikes(response.data.numLikes);
         } catch (error) {
             console.error("Erro ao dar dislike na resposta: ", error);
         }
@@ -48,7 +51,7 @@ const Resposta = ({ user, text, date, fotoPerfil, idResposta, currNumLikes, curr
                         <div className="d-flex justify-content-between align-items-center">
                             <p className="mb-1">
                                 {user}
-                                <span className="small"> - {date}</span>
+                                <span className="small"> - {format(new Date(date), 'dd/MM/yyyy')}</span>
                             </p>
                         </div>
                         <div>

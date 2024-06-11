@@ -5,6 +5,7 @@ import Resposta from './Resposta';
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { format } from 'date-fns';
 
 const Avaliacoes = ({ avaliacoes }) => {
     const [reviews, setReviews] = useState(avaliacoes)
@@ -65,7 +66,7 @@ const Avaliacoes = ({ avaliacoes }) => {
         if (replyText.trim() !== '') {
             const newReply = {
                 text: replyText,
-                // publishDate: new Date().toLocaleDateString(),
+                publishDate: new Date().toLocaleDateString(),
             };
 
             try {
@@ -97,7 +98,7 @@ const Avaliacoes = ({ avaliacoes }) => {
             const updatedAvaliacao = response.data;
 
             setReviews(prevAvaliacoes => prevAvaliacoes.map(item =>
-                item.id === itemId ? { ...item, numLikes: updatedAvaliacao.numLikes } : item
+                item.id === itemId ? { ...item, numLikes: updatedAvaliacao.numLikes, numDislikes: updatedAvaliacao.numDislikes } : item
             ));
         } catch (error) {
             console.error("Erro ao dar like: ", error);
@@ -113,7 +114,7 @@ const Avaliacoes = ({ avaliacoes }) => {
             const updatedAvaliacao = response.data;
 
             setReviews(prevAvaliacoes => prevAvaliacoes.map(item =>
-                item.id === itemId ? { ...item, numDislikes: updatedAvaliacao.numDislikes } : item
+                item.id === itemId ? { ...item, numDislikes: updatedAvaliacao.numDislikes, numLikes: updatedAvaliacao.numLikes } : item
             ));
         } catch (error) {
             console.error("Erro ao dar dislike: ", error);
@@ -143,7 +144,7 @@ const Avaliacoes = ({ avaliacoes }) => {
                                             readOnly
                                             max={5}
                                         />
-                                        <p className="small">{item.publishDate}</p>
+                                        <p className="small">{format(new Date(item.publishDate), 'dd/MM/yyyy')}</p>
                                         <p>{item.text}</p>
                                         <div className="d-flex justify-content-between">
                                             <div className="d-flex align-items-center" style={{ gap: "5px" }}>
@@ -178,7 +179,7 @@ const Avaliacoes = ({ avaliacoes }) => {
                                                 key={index}
                                                 user={resposta.criadoPor}
                                                 text={resposta.text}
-                                                date={resposta.date}
+                                                date={resposta.publishDate}
                                                 fotoPerfil={resposta.fotoPerfil}
                                                 idResposta={resposta.id}
                                                 currNumLikes={resposta.numLikes}

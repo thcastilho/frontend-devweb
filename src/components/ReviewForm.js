@@ -13,7 +13,7 @@ const ReviewForm = ({ onNewReview, profileImageUrl }) => {
         onNewReview({
             text,
             numStars: rating,
-            // publishDate: new Date().toLocaleDateString(),
+            publishDate: new Date().toLocaleDateString(),
             // fotoPerfil: profileImageUrl
         });
         setText("");
