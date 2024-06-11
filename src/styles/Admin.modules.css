@@ -1,0 +1,27 @@
+.admin-txt {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.column {
+    text-align: center;
+    margin-top: 2%;
+}
+
+.posts{
+    width: 50%;
+    float: left;
+}
+
+.generos{
+    width: 50%;
+    float: right;
+}
+
+.botao{
+    margin-top: 2%;
+    padding: 20px 20px;
+    font-size: 20px;
+    border-radius: 20px;
+    width: 300px;
+}
