@@ -62,6 +62,7 @@ const Avaliacoes = ({ avaliacoes }) => {
         }
     };
 
+
     const handleReplySubmit = async (itemId) => {
         if (replyText.trim() !== '') {
             const newReply = {

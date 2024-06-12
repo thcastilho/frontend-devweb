@@ -72,15 +72,16 @@ export default function MusicDetails() {
 
     const handleNewReview = async (newReview) => {
         try {
+            console.log(newReview)
             const token = localStorage.getItem("token")
             const response = await axios.post(`http://localhost:8080/comentarios/avaliacao/${id}`, newReview, {
                 headers: { Authorization: `Bearer ${token}` }
             })
+            
             const savedReview = response.data
 
             const responsePost = await axios.get(`http://localhost:8080/posts/${id}`);
             setData(responsePost.data)
-
 
             setReviews(prevReviews => [...prevReviews, savedReview])
             setShowForm(false);
