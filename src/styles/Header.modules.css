@@ -32,12 +32,14 @@ img {
 }
 
 .header-search {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     flex: 1;
     background-color: #fff;
     border: solid 1px;
     border-radius: 5px;
     width: 400px;
+    position: relative;
 }
 
 textarea, input { outline: none; }
@@ -48,16 +50,20 @@ textarea, input { outline: none; }
     font-weight: bold;
     border: none;
     height: 32px;
-    width: 95%;
+    width: calc(100% - 30px); /* Ajustar a largura para evitar sobreposição com o ícone de busca */
 }
 
 .search-icon {
-    float: right;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
-    color:#fff;
+    color: #fff;
 }
 
 .login {
@@ -65,9 +71,7 @@ a:link, a:visited, a:hover, a:active {
     color: #fff;
 }
 
-.dropdown-custom {
-    
-}
+.dropdown-custom {}
 
 .dropdown-item-custom {
     color: #000000 !important; /* Escolha a cor que você deseja */
@@ -75,4 +79,49 @@ a:link, a:visited, a:hover, a:active {
 
 .menu-custom {
     background-color: #a0c9d9 !important;
+}
+
+/* estilos da sugestão */
+.autosuggest-container {
+    position: relative;
+    width: 100%;
+}
+
+.autosuggest-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.autosuggest-suggestions-container {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+}
+
+.autosuggest-suggestion {
+    padding: 10px;
+    cursor: pointer;
+    list-style-type: none !important;  /* remover a numeração */
+}
+
+/* necessário usar também no App.css */
+.autosuggest-suggestion ul,
+.autosuggest-suggestion li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.autosuggest-suggestion--highlighted {
+    background-color: #ddd;
 }

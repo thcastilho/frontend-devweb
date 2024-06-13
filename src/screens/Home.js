@@ -26,22 +26,26 @@ export default function Home() {
             <div className="container">
                 <h1 className="title">Novas músicas</h1>
                 <Row className="music-container">
-                    {singles.map(item => (
-                        <Col key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
-                            <img src={item.image} alt={item.name} />
-                            <Link to={`/post/${item.id}`} >
-                                <p className="music-name">{item.name}</p>
-                            </Link>
-                            <p>{item.artist}</p>
-                            <Rating
-                                value={item.avgStars}
-                                precision={0.5}
-                                readOnly
-                                max={5}
-                            />
-                        </Col>
-                    ))}
-                </Row>
+                    {singles.map(item => {
+                        console.log(`Single: ${item.name}, averageRating: ${item.averageRating}`);
+                        return (
+                            <Col key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
+                                <img src={item.image} alt={item.name} />
+                                <Link to={`/post/${item.id}`} >
+                                    <p className="music-name">{item.name}</p>
+                                </Link>
+                                <p>{item.artist}</p>
+                                <Rating
+                                    value={item.averageRating}
+                                    precision={0.5}
+                                    readOnly
+                                    max={5}
+                                />
+                            </Col>
+                        );
+                    })}
+</Row>
+
                 <h1 className="title">Novos álbuns</h1>
                 <Row className="music-container">
                     {albuns.map(item => (
@@ -52,7 +56,7 @@ export default function Home() {
                             </Link>
                             <p>{item.artist}</p>
                             <Rating
-                                value={item.avgStars}
+                                value={item.averageRating}
                                 precision={0.5}
                                 readOnly
                                 max={5}
