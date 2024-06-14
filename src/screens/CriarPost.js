@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CriarPost() {
     const [nome, setNome] = useState("");
@@ -11,7 +12,10 @@ export default function CriarPost() {
     const [categoria, setCategoria] = useState("");
     const [generos, setGeneros] = useState([]);
     const [selectedGeneros, setSelectedGeneros] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("http://localhost:8080/generos/")
@@ -35,7 +39,18 @@ export default function CriarPost() {
             await axios.post("http://localhost:8080/posts/", request_body, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+
+            setSuccessMessage("Post criado com sucesso!");
+            setErrorMessage("");
+            setNome(""); // Limpa os inputs após a criação bem-sucedida
+            setArtist("");
+            setImageUrl("");
+            setReleaseDate("");
+            setCategoria("");
+            setSelectedGeneros([]);
         } catch (error) {
+            setErrorMessage("Erro ao criar post");
+            setSuccessMessage("");
             console.error("Erro ao criar post. ", error);
         }
     };
@@ -47,6 +62,18 @@ export default function CriarPost() {
         } else {
             setSelectedGeneros(selectedGeneros.filter(genre => genre !== value));
         }
+        setErrorMessage("");
+        setSuccessMessage("");
+    };
+
+    const handleInputChange = (setter) => (e) => {
+        setter(e.target.value);
+        setErrorMessage("");
+        setSuccessMessage("");
+    };
+
+    const handleBackClick = () => {
+        navigate("/admin-panel");
     };
 
     if (!currentUser) return <></>;
@@ -69,6 +96,8 @@ export default function CriarPost() {
                             <Card.Body className="p-4">
                                 <div>
                                     <h2>Criar novo post</h2>
+                                    {errorMessage && <p style={{ textAlign: "center", color: "red" }}>{errorMessage}</p>}
+                                    {successMessage && <p style={{ textAlign: "center", color: "green" }}>{successMessage}</p>}
                                     <Form onSubmit={handleSubmit}>
                                         <div className="mb-3">
                                             <Form.Label htmlFor="nome">Nome: </Form.Label>
@@ -76,7 +105,7 @@ export default function CriarPost() {
                                                 type="text"
                                                 id="nome"
                                                 value={nome}
-                                                onChange={(e) => setNome(e.target.value)}
+                                                onChange={handleInputChange(setNome)}
                                                 required
                                             />
                                         </div>
@@ -86,7 +115,7 @@ export default function CriarPost() {
                                                 type="text"
                                                 id="artist"
                                                 value={artist}
-                                                onChange={(e) => setArtist(e.target.value)}
+                                                onChange={handleInputChange(setArtist)}
                                                 required
                                             />
                                         </div>
@@ -95,7 +124,7 @@ export default function CriarPost() {
                                             <Form.Select
                                                 id="categoria"
                                                 value={categoria}
-                                                onChange={(e) => setCategoria(e.target.value)}
+                                                onChange={handleInputChange(setCategoria)}
                                                 required
                                             >
                                                 <option value="" disabled>Selecione a categoria...</option>
@@ -125,7 +154,7 @@ export default function CriarPost() {
                                                 type="date"
                                                 id="releaseDate"
                                                 value={releaseDate}
-                                                onChange={(e) => setReleaseDate(e.target.value)}
+                                                onChange={handleInputChange(setReleaseDate)}
                                             />
                                         </div>
                                         <div className="mb-3">
@@ -134,11 +163,14 @@ export default function CriarPost() {
                                                 type="text"
                                                 id="imageUrl"
                                                 value={imageUrl}
-                                                onChange={(e) => setImageUrl(e.target.value)}
+                                                onChange={handleInputChange(setImageUrl)}
                                                 required
                                             />
                                         </div>
-                                        <Button type="submit" variant="outline-info">Criar</Button><br />
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <Button type="submit" variant="outline-info">Criar</Button>
+                                            <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
+                                        </div>
                                     </Form>
                                 </div>
                             </Card.Body>

@@ -1,14 +1,16 @@
 import React, { useState } from "react"
-import { Container, Form } from "react-bootstrap"
+import { Container, Form, Button } from "react-bootstrap"
 import { MDBRow, MDBCard, MDBCardBody, MDBCol, MDBTypography } from "mdb-react-ui-kit"
 import axios from "axios"
 import { useAuth } from "../contexts/AuthContext"
+import { useNavigate } from "react-router-dom";
 
 export default function CriarGenero() {
     const [nome, setNome] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
     const { currentUser } = useAuth()
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,6 +35,7 @@ export default function CriarGenero() {
 
             setSuccessMessage("Gênero criado com sucesso!")
             setErrorMessage("")
+            setNome("")  // Limpa o input após a criação bem-sucedida
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 setErrorMessage("Um gênero com esse nome já está cadastrado.")
@@ -43,7 +46,17 @@ export default function CriarGenero() {
             console.error("Erro ao criar gênero: ", error)
         }
     }
-    
+
+    const handleInputChange = (e) => {
+        setNome(e.target.value)
+        setErrorMessage("")
+        setSuccessMessage("")
+    }
+
+    const handleBackClick = () => {
+        navigate("/admin-panel")
+    }
+
     if (!currentUser) return <></>
 
     if (currentUser.role !== "ADMIN")
@@ -55,17 +68,16 @@ export default function CriarGenero() {
             </Container>
         )
 
-    return (
-        <Container style={{ paddingTop: "30px" }}>
-            <section>
-                <MDBRow>
-                    <MDBCol>
-                        <MDBCard className="w-100">
-                            <MDBCardBody className="p-4">
-                                <div>
+        return (
+            <Container style={{ paddingTop: "30px" }}>
+                <section>
+                    <MDBRow>
+                        <MDBCol>
+                            <MDBCard className="w-100">
+                                <MDBCardBody className="p-4">
                                     <MDBTypography tag="h2">Criar novo gênero</MDBTypography>
-                                    {errorMessage && <p style={{ textAlign: "center" }}>{errorMessage}</p>}
-                                    {successMessage && <p style={{ textAlign: "center" }}>{successMessage}</p>}
+                                    {errorMessage && <p style={{ textAlign: "center", color: "red" }}>{errorMessage}</p>}
+                                    {successMessage && <p style={{ textAlign: "center", color: "green" }}>{successMessage}</p>}
                                     <Form onSubmit={handleSubmit}>
                                         <div className="mb-3">
                                             <label htmlFor="nome" className="form-label">Nome: </label>
@@ -73,19 +85,21 @@ export default function CriarGenero() {
                                                 type="text"
                                                 id="nome"
                                                 value={nome}
-                                                onChange={(e) => setNome(e.target.value)}
+                                                onChange={handleInputChange}
                                                 required
                                                 className="form-control form-border"
                                             />
                                         </div>
-                                        <button type="submit" className="btn btn-outline-info">Criar</button><br />
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <Button type="submit" variant="outline-info">Criar</Button>
+                                            <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
+                                        </div>
                                     </Form>
-                                </div>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </section>
-        </Container>
-    )
-}
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>
+                    </MDBRow>
+                </section>
+            </Container>
+        )
+    }

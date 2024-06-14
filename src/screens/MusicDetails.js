@@ -13,7 +13,7 @@ export default function MusicDetails() {
     const { id } = useParams()
     const [showForm, setShowForm] = useState(false);
     const [reviews, setReviews] = useState([])
-    const [profileImageUrl, setProfileImageUrl] = useState("")
+    // const [profileImageUrl, setProfileImageUrl] = useState("")
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const [data, setData] = useState()
@@ -39,24 +39,24 @@ export default function MusicDetails() {
             )
     }, [id])
 
-    const getProfileImageUrl = (gender) => {
-        if (gender === "HOMEM") {
-            return "https://avatar.iran.liara.run/public/boy";
-            // return "https://xsgames.co/randomusers/avatar.php?g=male"
-        } else if (gender === "MULHER") {
-            return "https://avatar.iran.liara.run/public/girl";
-            // return "https://xsgames.co/randomusers/avatar.php?g=female"
-        } else {
-            return "https://avatar.iran.liara.run/public";
-            // return "https://xsgames.co/randomusers/avatar.php?g=pixel"
-        }
-    }
+    // const getProfileImageUrl = (gender) => {
+    //     if (gender === "HOMEM") {
+    //         return "https://avatar.iran.liara.run/public/boy";
+    //         // return "https://xsgames.co/randomusers/avatar.php?g=male"
+    //     } else if (gender === "MULHER") {
+    //         return "https://avatar.iran.liara.run/public/girl";
+    //         // return "https://xsgames.co/randomusers/avatar.php?g=female"
+    //     } else {
+    //         return "https://avatar.iran.liara.run/public";
+    //         // return "https://xsgames.co/randomusers/avatar.php?g=pixel"
+    //     }
+    // }
 
-    useEffect(() => {
-        if (currentUser) {
-            setProfileImageUrl(getProfileImageUrl(currentUser.sexo))
-        }
-    }, [currentUser])
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         setProfileImageUrl(getProfileImageUrl(currentUser.sexo))
+    //     }
+    // }, [currentUser])
 
     if (!data) {
         return <div>Music not found</div>;
@@ -121,7 +121,7 @@ export default function MusicDetails() {
                     <button className="avaliacoes-title btn-review" onClick={handleReviewClick}>
                         Faça uma avaliação
                     </button>
-                    {showForm && <ReviewForm onNewReview={handleNewReview} profileImageUrl={profileImageUrl} />}
+                    {showForm && <ReviewForm onNewReview={handleNewReview} />}
                     <p className="avaliacoes-title" style={{ paddingTop: "16px" }}>{reviews.length} Avaliações</p>
                 </div>
                 <Avaliacoes avaliacoes={reviews} />

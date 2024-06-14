@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Rating } from "@mui/material";
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 
-const ReviewForm = ({ onNewReview, profileImageUrl }) => {
+const ReviewForm = ({ onNewReview }) => {
     const [text, setText] = useState("");
     const [rating, setRating] = useState(0);
     const { currentUser } = useAuth();
