@@ -46,20 +46,20 @@ export default function UserData() {
         e.preventDefault();
         const token = localStorage.getItem('token');
 
-    // verifica se a nova senha e a confirmação da senha são iguais
-    if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
-        setErrorMessage("As novas senhas não coincidem");
-        return;
-    }
+        // verifica se a nova senha e a confirmação da senha são iguais
+        if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
+            setErrorMessage("As novas senhas não coincidem");
+            return;
+        }
 
-    const updatedFormData = { ...formData };
+        const updatedFormData = { ...formData };
 
-    // remove campos de senha se estiverem vazios (necessário para funcionamento com o back-end)
-    if (!updatedFormData.newPassword) {
-        delete updatedFormData.newPassword;
-        delete updatedFormData.confirmPassword;
-        delete updatedFormData.currentPassword;
-    }
+        // remove campos de senha se estiverem vazios (necessário para funcionamento com o back-end)
+        if (!updatedFormData.newPassword) {
+            delete updatedFormData.newPassword;
+            delete updatedFormData.confirmPassword;
+            delete updatedFormData.currentPassword;
+        }
     
         if (token) {
             axios.put('http://localhost:8080/usuarios/', updatedFormData, {

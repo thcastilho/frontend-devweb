@@ -44,7 +44,7 @@ export default function Home() {
                             </Col>
                         );
                     })}
-</Row>
+                </Row>
 
                 <h1 className="title">Novos álbuns</h1>
                 <Row className="music-container">

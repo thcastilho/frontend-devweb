@@ -19,6 +19,8 @@ import MusicDetails from './screens/MusicDetails';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import CriarPost from './screens/CriarPost';
 import CriarGenero from './screens/CriarGenero';
+import ExcluirPost from './screens/ExcluirPost';
+import ExcluirGenero from './screens/ExcluirGenero';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
       {
         path: "/criar-genero",
         element: <CriarGenero />
+      },
+      {
+        path: "/excluir-post",
+        element: <ExcluirPost />
+      },
+      {
+        path: "/excluir-genero",
+        element: <ExcluirGenero />
       }
       /*,
       {
