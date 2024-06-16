@@ -19,7 +19,7 @@ export default function AdminPanel() {
                         </Link>
                     </div>
                     <div className="mb-3">
-                        <Link to="/">
+                        <Link to="/excluir-post">
                             <button className="btn botao btn-info">Excluir post</button>
                         </Link>
                     </div>
@@ -37,7 +37,7 @@ export default function AdminPanel() {
                         </Link>
                     </div>
                     <div className="mb-3">
-                        <Link to="/">
+                        <Link to="/excluir-genero">
                             <button className="btn botao btn-info">Excluir gênero</button>
                         </Link>
                     </div>

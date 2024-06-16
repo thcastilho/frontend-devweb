@@ -1,0 +1,33 @@
+.title {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.sub-title {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 10%;
+}
+
+.music-container {
+    display: flex;
+}
+
+.music-item {
+    flex: 1;
+    padding-bottom: 30px;
+}
+
+.music-container img{
+    height: 200px;
+    width: 200px;
+}
+
+.music-container p {
+    margin: 0;
+}
+
+.music-name {
+    font-size: x-large;
+    color: black;
+}
