@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ExcluirPost.modules.css'
 import { Rating } from '@mui/material';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { Row, Col, Button, Modal } from 'react-bootstrap';
 
@@ -11,7 +11,6 @@ export default function ExcluirPost() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
-    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get("http://localhost:8080/posts/")
@@ -40,7 +39,7 @@ export default function ExcluirPost() {
             })
                 .then(response => {
                     setSuccessMessage('Post excluído com sucesso');
-                    navigate("/excluir-post");
+                    window.location.reload()  
                 })
                 .catch(error => {
                     console.error('Erro ao excluir o post', error);

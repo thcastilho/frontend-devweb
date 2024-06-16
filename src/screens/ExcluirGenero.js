@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ExcluirGenero.modules.css'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { Row, Col, Button, Modal } from 'react-bootstrap';
 
@@ -10,7 +10,6 @@ export default function ExcluirGenero() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
-    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get("http://localhost:8080/generos/")
@@ -36,7 +35,7 @@ export default function ExcluirGenero() {
             })
                 .then(response => {
                     setSuccessMessage('Gênero excluído com sucesso');
-                    navigate("/excluir-genero");
+                    window.location.reload()  
                 })
                 .catch(error => {
                     console.error('Erro ao excluir o genero', error);
@@ -48,7 +47,7 @@ export default function ExcluirGenero() {
     };
 
     return (
-        <>
+        <div>
             <h1 className="title">Excluir Gênero</h1>
             {errorMessage && <p className="text-danger" style={{textAlign: "center"}}>{errorMessage}</p>}
             {successMessage && <p className="text-success" style={{textAlign: "center"}}>{successMessage}</p>}
@@ -99,7 +98,7 @@ export default function ExcluirGenero() {
                     </Modal.Footer>
                 </Modal>
             </div>
-        </>
+        </div>
     );
 }
 
