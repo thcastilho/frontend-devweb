@@ -62,8 +62,8 @@ export default function ExcluirPost() {
                     {singles.map(item => {
                         console.log(`Single: ${item.name}, averageRating: ${item.averageRating}`);
                         return (
-                            <div>
-                            <Row key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
+                            <div key={item.id}>
+                            <Row xs={12} sm={6} md={4} lg={3} className="music-item">
                                 <Col md={4} className="text-right">
                                     <img src={item.image} alt={item.name} />
                                 </Col>
@@ -91,8 +91,8 @@ export default function ExcluirPost() {
                 <h1 className="sub-title">Álbuns</h1>
                 <Row className="music-container">
                     {albuns.map(item => (
-                        <div>
-                        <Row key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
+                        <div key={item.id}>
+                        <Row xs={12} sm={6} md={4} lg={3} className="music-item">
                             <Col md={4} className="text-right">
                                 <img src={item.image} alt={item.name} />
                             </Col>

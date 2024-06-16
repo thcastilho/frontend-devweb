@@ -58,8 +58,8 @@ export default function ExcluirGenero() {
                     {data.map(item => {
                         console.log(`Gênero: ${item.name}`);
                         return (
-                            <div>
-                            <Row key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
+                            <div key={item.id}>
+                            <Row xs={12} sm={6} md={4} lg={3} className="music-item">
                                 <Col md={4} className="text-right">
                                     <p className="music-name">ID: {item.id} -</p>
                                 </Col>
