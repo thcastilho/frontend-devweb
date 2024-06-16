@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Card, Image, Form, Button, Modal } from 'react-bootstrap';
 import '../styles/UserData.modules.css';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext'
 
 export default function UserData() {
     const [userData, setUserData] = useState(""); // dados ATUAIS do usuário
@@ -10,6 +12,8 @@ export default function UserData() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false); // controle de exibição do pop-up de exclusão de conta
+    const { logout } = useAuth() // controla autenticação do usuário
+    const navigate = useNavigate()
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -93,7 +97,8 @@ export default function UserData() {
             })
                 .then(response => {
                     setSuccessMessage('Conta excluída com sucesso');
-                    // Opcional: Redirecionar o usuário ou realizar outras ações após a exclusão
+                    logout()
+                    navigate("/")
                 })
                 .catch(error => {
                     console.error('Erro ao excluir a conta do usuário', error);

@@ -1,11 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBCardBody, MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
 import { format } from "date-fns";
 
-const Resposta = ({ user, text, date, fotoPerfil, idResposta, currNumLikes, currNumDislikes }) => {
-    const [numLikes, setNumLikes] = useState(currNumLikes)
-    const [numDislikes, setNumDislikes] = useState(currNumDislikes)
+const Resposta = ({ user, text, date, idResposta, currNumLikes, currNumDislikes }) => {
+    const [numLikes, setNumLikes] = useState(currNumLikes);
+    const [numDislikes, setNumDislikes] = useState(currNumDislikes);
+    const [fotoPerfil, setFotoPerfil] = useState("");
+
+    useEffect(() => {
+        const fetchUsuarioData = async (username) => {
+            try {
+                const response = await axios.get(`http://localhost:8080/usuarios/login/${username}`);
+                const userData = response.data;
+                const profileImageUrl = getProfileImageUrl(userData.sexo);
+                setFotoPerfil(profileImageUrl);
+            } catch (error) {
+                console.error(`Erro ao carregar dados do usuário com ID ${username}: `, error);
+            }
+        };
+
+        fetchUsuarioData(user);
+    }, [user]);
+
+    const getProfileImageUrl = (gender) => {
+        const cacheBuster = new Date().getTime();
+        if (gender === "HOMEM") {
+            return `https://avatar.iran.liara.run/public/boy?cb=${cacheBuster}`;
+        } else if (gender === "MULHER") {
+            return `https://avatar.iran.liara.run/public/girl?cb=${cacheBuster}`;
+        } else {
+            return `https://avatar.iran.liara.run/public?cb=${cacheBuster}`;
+        }
+    };
 
     if (!text) return null;
 
@@ -35,6 +62,11 @@ const Resposta = ({ user, text, date, fotoPerfil, idResposta, currNumLikes, curr
         }
     };
 
+    const formatDate = (dateString) => {
+        const parsedDate = new Date(dateString);
+        return format(parsedDate, 'dd/MM/yyyy HH:mm');
+    };
+
     return (
         <>
             <MDBCardBody>
@@ -51,7 +83,7 @@ const Resposta = ({ user, text, date, fotoPerfil, idResposta, currNumLikes, curr
                         <div className="d-flex justify-content-between align-items-center">
                             <p className="mb-1">
                                 {user}
-                                <span className="small"> - {format(new Date(date), 'dd/MM/yyyy')}</span>
+                                <span className="small"> - {formatDate(date)}</span>
                             </p>
                         </div>
                         <div>

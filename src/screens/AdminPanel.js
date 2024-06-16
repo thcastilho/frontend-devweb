@@ -13,11 +13,11 @@ export default function AdminPanel() {
                             <button className="btn botao btn-info">Criar novo post</button>
                         </Link>
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <Link to="/">
                             <button className="btn botao btn-info">Editar post</button>
                         </Link>
-                    </div>
+                    </div> */}
                     <div className="mb-3">
                         <Link to="/">
                             <button className="btn botao btn-info">Excluir post</button>
@@ -31,11 +31,11 @@ export default function AdminPanel() {
                             <button className="btn botao btn-info">Criar novo gênero</button>
                         </Link>
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <Link to="/">
                             <button className="btn botao btn-info">Editar gênero</button>
                         </Link>
-                    </div>
+                    </div> */}
                     <div className="mb-3">
                         <Link to="/">
                             <button className="btn botao btn-info">Excluir gênero</button>

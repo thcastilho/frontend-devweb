@@ -12,15 +12,16 @@ const Avaliacoes = ({ avaliacoes }) => {
     const [showReplyBox, setShowReplyBox] = useState(null);
     const [replyText, setReplyText] = useState('');
     const [respostas, setRespostas] = useState({});
-    const [profileImageUrl, setProfileImageUrl] = useState("")
     const { currentUser } = useAuth()
     const navigate = useNavigate()
+    const [usuarios, setUsuarios] = useState({});
 
     useEffect(() => {
         const fetchRespostas = async () => {
             try {
                 const respostasData = await Promise.all(
                     reviews.map(async (item) => {
+                        console.log(item)
                         const response = await axios.get(`http://localhost:8080/comentarios/${item.id}/respostas`);
                         return { [item.id]: response.data };
                     })
@@ -35,24 +36,52 @@ const Avaliacoes = ({ avaliacoes }) => {
         fetchRespostas();
     }, [reviews]);
 
-    const getProfileImageUrl = (gender) => {
-        if (gender === "HOMEM") {
-            return "https://avatar.iran.liara.run/public/boy";
-            // return "https://xsgames.co/randomusers/avatar.php?g=male"
-        } else if (gender === "MULHER") {
-            return "https://avatar.iran.liara.run/public/girl";
-            // return "https://xsgames.co/randomusers/avatar.php?g=female"
-        } else {
-            return "https://avatar.iran.liara.run/public";
-            // return "https://xsgames.co/randomusers/avatar.php?g=pixel"
+    const fetchUsuarioData = async (username) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/usuarios/login/${username}`);
+            const userData = response.data;
+            console.log(userData)
+            const profileImageUrl = getProfileImageUrl(userData.sexo);
+            return { ...userData, profileImageUrl };
+        } catch (error) {
+            console.error(`Erro ao carregar dados do usuário com ID ${username}: `, error);
+            return null;
         }
-    }
-
+    };
+    
     useEffect(() => {
-        if (currentUser) {
-            setProfileImageUrl(getProfileImageUrl(currentUser.sexo))
+        const fetchUsuarios = async () => {
+            const usuariosData = await Promise.all(
+                reviews.map(async (item) => {
+                    const usuarioData = await fetchUsuarioData(item.criadoPor);
+                    return { [item.criadoPor]: usuarioData };
+                })
+            );
+            const usuariosObj = usuariosData.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+            setUsuarios(usuariosObj);
+        };
+    
+        fetchUsuarios();
+    }, [reviews]);
+    
+
+    const getProfileImageUrl = (gender) => {
+        const cacheBuster = new Date().getTime();
+        if (gender === "HOMEM") {
+            return `https://avatar.iran.liara.run/public/boy?cb=${cacheBuster}`;
+        } else if (gender === "MULHER") {
+            return `https://avatar.iran.liara.run/public/girl?cb=${cacheBuster}`;
+        } else {
+            return `https://avatar.iran.liara.run/public?cb=${cacheBuster}`;
         }
-    }, [currentUser])
+    };
+    
+
+    const formatDate = (dateString) => {
+        const parsedDate = new Date(dateString);
+        return format(parsedDate, 'dd/MM/yyyy HH:mm');
+    };
+    
 
     const handleReplyClick = (itemId) => {
         if (currentUser) {
@@ -67,7 +96,6 @@ const Avaliacoes = ({ avaliacoes }) => {
         if (replyText.trim() !== '') {
             const newReply = {
                 text: replyText,
-                publishDate: new Date().toLocaleDateString(),
             };
 
             try {
@@ -130,7 +158,7 @@ const Avaliacoes = ({ avaliacoes }) => {
                         <div key={item.id} className="d-flex flex-start mb-4">
                             <img
                                 className="rounded-circle shadow-1-strong me-3"
-                                src={item.fotoPerfil}
+                                src={usuarios[item.criadoPor]?.profileImageUrl}
                                 alt="avatar"
                                 width="65"
                                 height="65"
@@ -145,7 +173,7 @@ const Avaliacoes = ({ avaliacoes }) => {
                                             readOnly
                                             max={5}
                                         />
-                                        <p className="small">{format(new Date(item.publishDate), 'dd/MM/yyyy')}</p>
+                                        <p className="small">{formatDate(item.dataCriacao)}</p>
                                         <p>{item.text}</p>
                                         <div className="d-flex justify-content-between">
                                             <div className="d-flex align-items-center" style={{ gap: "5px" }}>
@@ -180,7 +208,7 @@ const Avaliacoes = ({ avaliacoes }) => {
                                                 key={index}
                                                 user={resposta.criadoPor}
                                                 text={resposta.text}
-                                                date={resposta.publishDate}
+                                                date={resposta.dataCriacao}
                                                 fotoPerfil={resposta.fotoPerfil}
                                                 idResposta={resposta.id}
                                                 currNumLikes={resposta.numLikes}

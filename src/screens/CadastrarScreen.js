@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
 import "../styles/Register.modules.css"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CadastrarScreen() {
     const [username, setUsername] = useState("");
@@ -12,12 +12,13 @@ export default function CadastrarScreen() {
     const [gender, setGender] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+    const navigateTo = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            setErrorMessage("Passwords do not match");
+            setErrorMessage("Senhas não conferem!");
             return;
         }
 
@@ -28,7 +29,7 @@ export default function CadastrarScreen() {
             "email": email,
             "password": password,
             "sexo": genderValue,
-            "role": "USER"
+            "role": "ADMIN"
         }
 
         try {
@@ -36,6 +37,7 @@ export default function CadastrarScreen() {
             console.log("Cadastro realizado com sucesso! ", response.data);
             setSuccessMessage("Cadastro realizado com sucesso!")
             setErrorMessage("")
+            navigateTo("/login")
         } catch (error) {
             console.error("Error:", error);
             setSuccessMessage("")

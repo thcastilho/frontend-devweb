@@ -85,6 +85,7 @@ export default function MusicDetails() {
 
             setReviews(prevReviews => [...prevReviews, savedReview])
             setShowForm(false);
+            window.location.reload()    
         } catch (error) {
             console.error("Erro ao fazer avaliação. ", error)
         }
