@@ -27,7 +27,6 @@ export default function Home() {
                 <h1 className="title">Novas músicas</h1>
                 <Row className="music-container">
                     {singles.map(item => {
-                        console.log(`Single: ${item.name}, averageRating: ${item.averageRating}`);
                         return (
                             <Col key={item.id} xs={12} sm={6} md={4} lg={3} className="music-item">
                                 <img src={item.image} alt={item.name} />

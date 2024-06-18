@@ -29,6 +29,7 @@ export default function Header() {
             if (response.data && response.data.length > 0) {
                 navigate(`/post/${response.data[0].id}`)
                 setSearchItem("")
+                window.location.reload()
             }
         } catch (error) {
             console.error("Erro ao buscar posts: ", error)

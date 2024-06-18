@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MDBCardBody, MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
 const Resposta = ({ user, text, date, idResposta, currNumLikes, currNumDislikes }) => {
     const [numLikes, setNumLikes] = useState(currNumLikes);
@@ -63,7 +63,7 @@ const Resposta = ({ user, text, date, idResposta, currNumLikes, currNumDislikes 
     };
 
     const formatDate = (dateString) => {
-        const parsedDate = new Date(dateString);
+        const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
         return format(parsedDate, 'dd/MM/yyyy HH:mm');
     };
 

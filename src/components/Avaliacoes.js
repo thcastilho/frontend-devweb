@@ -5,7 +5,7 @@ import Resposta from './Resposta';
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 const Avaliacoes = ({ avaliacoes }) => {
     const [reviews, setReviews] = useState(avaliacoes)
@@ -21,7 +21,6 @@ const Avaliacoes = ({ avaliacoes }) => {
             try {
                 const respostasData = await Promise.all(
                     reviews.map(async (item) => {
-                        console.log(item)
                         const response = await axios.get(`http://localhost:8080/comentarios/${item.id}/respostas`);
                         return { [item.id]: response.data };
                     })
@@ -40,7 +39,6 @@ const Avaliacoes = ({ avaliacoes }) => {
         try {
             const response = await axios.get(`http://localhost:8080/usuarios/login/${username}`);
             const userData = response.data;
-            console.log(userData)
             const profileImageUrl = getProfileImageUrl(userData.sexo);
             return { ...userData, profileImageUrl };
         } catch (error) {
@@ -78,8 +76,16 @@ const Avaliacoes = ({ avaliacoes }) => {
     
 
     const formatDate = (dateString) => {
-        const parsedDate = new Date(dateString);
-        return format(parsedDate, 'dd/MM/yyyy HH:mm');
+        try {
+            const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
+            if (isNaN(parsedDate)) {
+                throw new Error("Invalid date");
+            }
+            return format(parsedDate, 'dd/MM/yyyy HH:mm');
+        } catch (error) {
+            console.error("Error formatting date:", error);
+            return "Data inválida";
+        }
     };
     
 

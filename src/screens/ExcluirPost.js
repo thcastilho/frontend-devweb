@@ -27,9 +27,6 @@ export default function ExcluirPost() {
 
     const handleDeletePost = () => {
         const token = localStorage.getItem('token');
-
-        console.log(id);
-
         if (token) {
             axios.delete(`http://localhost:8080/posts/${id}`, {
                 headers: {
@@ -47,12 +44,11 @@ export default function ExcluirPost() {
                 });
         }
 
-        console.log("chegou aki");
     };
 
     return (
         <>
-            <h1 className="title">Excluir Post</h1>
+            <h1 className="title-del">Excluir Post</h1>
             {errorMessage && <p className="text-danger" style={{textAlign: "center"}}>{errorMessage}</p>}
             {successMessage && <p className="text-success" style={{textAlign: "center"}}>{successMessage}</p>}
 
@@ -60,7 +56,6 @@ export default function ExcluirPost() {
                 <h1 className="sub-title">Músicas</h1>
                 <Row className="music-container">
                     {singles.map(item => {
-                        console.log(`Single: ${item.name}, averageRating: ${item.averageRating}`);
                         return (
                             <div key={item.id}>
                             <Row xs={12} sm={6} md={4} lg={3} className="music-item">

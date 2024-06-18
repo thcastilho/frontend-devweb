@@ -29,7 +29,7 @@ export default function CadastrarScreen() {
             "email": email,
             "password": password,
             "sexo": genderValue,
-            "role": "ADMIN"
+            "role": "USER"
         }
 
         try {

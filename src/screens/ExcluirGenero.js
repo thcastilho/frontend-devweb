@@ -23,9 +23,6 @@ export default function ExcluirGenero() {
 
     const handleDeleteGenero = () => {
         const token = localStorage.getItem('token');
-
-        console.log(id);
-
         if (token) {
             axios.delete(`http://localhost:8080/generos/${id}`, {
                 headers: {
@@ -43,12 +40,11 @@ export default function ExcluirGenero() {
                 });
         }
 
-        console.log("chegou aki");
     };
 
     return (
         <div>
-            <h1 className="title">Excluir Gênero</h1>
+            <h1 className="title-del">Excluir Gênero</h1>
             {errorMessage && <p className="text-danger" style={{textAlign: "center"}}>{errorMessage}</p>}
             {successMessage && <p className="text-success" style={{textAlign: "center"}}>{successMessage}</p>}
 
@@ -56,7 +52,6 @@ export default function ExcluirGenero() {
                 <h1 className="sub-title">Gêneros</h1>
                 <Row className="music-container">
                     {data.map(item => {
-                        console.log(`Gênero: ${item.name}`);
                         return (
                             <div key={item.id}>
                             <Row xs={12} sm={6} md={4} lg={3} className="music-item">
