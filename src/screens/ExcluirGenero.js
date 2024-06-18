@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../styles/ExcluirGenero.modules.css'
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { Row, Col, Button, Modal } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { MDBRow, MDBCard, MDBCardBody, MDBCol, MDBTypography } from "mdb-react-ui-kit"
 
 export default function ExcluirGenero() {
     const [id, setId] = useState("");
@@ -43,60 +44,63 @@ export default function ExcluirGenero() {
     };
 
     return (
-        <div>
-            <h1 className="title-del">Excluir Gênero</h1>
-            {errorMessage && <p className="text-danger" style={{textAlign: "center"}}>{errorMessage}</p>}
-            {successMessage && <p className="text-success" style={{textAlign: "center"}}>{successMessage}</p>}
-
-            <div className="container">
-                <h1 className="sub-title">Gêneros</h1>
-                <Row className="music-container">
-                    {data.map(item => {
-                        return (
-                            <div key={item.id}>
-                            <Row xs={12} sm={6} md={4} lg={3} className="music-item">
-                                <Col md={4} className="text-right">
-                                    <p className="music-name">ID: {item.id} -</p>
-                                </Col>
-                                <Col md={8}>
-                                    <Link to={`/genero/${item.id}`} >
-                                        <p className="music-name">{item.name}</p>
-                                    </Link>
-                                </Col>
-                                <Col md={12}>
-                                    <Button variant="danger" onClick={() => {setId(item.id); setShowPopup(true)}} className='ms-2'>Excluir Gênero</Button>
-                                </Col>
-                            </Row>
-                            </div>
-                        );
-                    })}
-                </Row>
-                <p></p>
-
-                <Modal show={showPopup} onHide={() => setShowPopup(false)}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Confirmar Exclusão</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Tem certeza de que deseja excluir o gênero? Esta ação é irreversível.
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShowPopup(false)}>
-                            Cancelar
-                        </Button>
-                        <Button variant="danger" onClick={() => {
-                            handleDeleteGenero();
-                            setShowPopup(false);
-                        }}>
-                            Excluir Gênero
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        </div>
+        <Container style={{ paddingTop: "30px" }}>
+            <section>
+                <MDBRow>
+                    <MDBCol>
+                        <MDBCard className="w-100">
+                            <MDBCardBody className="p-4">
+                                <MDBTypography tag="h2">Excluir Gênero</MDBTypography>
+                                {errorMessage && <p className="text-danger" style={{textAlign: "center"}}>{errorMessage}</p>}
+                                {successMessage && <p className="text-success" style={{textAlign: "center"}}>{successMessage}</p>}
+                                
+                                <Row className="music-container">
+                                    {data.map(item => {
+                                        return (
+                                            <div key={item.id}>
+                                            <Row xs={12} sm={6} md={4} lg={3} className="music-item">
+                                                <Col md={4} className="text-right">
+                                                    <p className="music-name">ID: {item.id} -</p>
+                                                </Col>
+                                                <Col md={8}>
+                                                    <Link to={`/genero/${item.id}`} >
+                                                        <p className="music-name">{item.name}</p>
+                                                    </Link>
+                                                </Col>
+                                                <Col md={12}>
+                                                    <Button variant="danger" onClick={() => {setId(item.id); setShowPopup(true)}} className='ms-2'>Excluir Gênero</Button>
+                                                </Col>
+                                            </Row>
+                                            </div>
+                                        );
+                                    })}
+                                </Row>
+                                <p></p>
+                                
+                                <Modal show={showPopup} onHide={() => setShowPopup(false)}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Confirmar Exclusão</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        Tem certeza de que deseja excluir o gênero? Esta ação é irreversível.
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="secondary" onClick={() => setShowPopup(false)}>
+                                            Cancelar
+                                        </Button>
+                                        <Button variant="danger" onClick={() => {
+                                            handleDeleteGenero();
+                                            setShowPopup(false);
+                                        }}>
+                                            Excluir Gênero
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+            </section>
+        </Container>
     );
 }
-
-/*
-
-*/

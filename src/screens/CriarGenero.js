@@ -68,38 +68,38 @@ export default function CriarGenero() {
             </Container>
         )
 
-        return (
-            <Container style={{ paddingTop: "30px" }}>
-                <section>
-                    <MDBRow>
-                        <MDBCol>
-                            <MDBCard className="w-100">
-                                <MDBCardBody className="p-4">
-                                    <MDBTypography tag="h2">Criar novo gênero</MDBTypography>
-                                    {errorMessage && <p style={{ textAlign: "center", color: "red" }}>{errorMessage}</p>}
-                                    {successMessage && <p style={{ textAlign: "center", color: "green" }}>{successMessage}</p>}
-                                    <Form onSubmit={handleSubmit}>
-                                        <div className="mb-3">
-                                            <label htmlFor="nome" className="form-label">Nome: </label>
-                                            <input
-                                                type="text"
-                                                id="nome"
-                                                value={nome}
-                                                onChange={handleInputChange}
-                                                required
-                                                className="form-control form-border"
-                                            />
-                                        </div>
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
-                                            <Button type="submit" variant="outline-info">Criar</Button>
-                                        </div>
-                                    </Form>
-                                </MDBCardBody>
-                            </MDBCard>
-                        </MDBCol>
-                    </MDBRow>
-                </section>
-            </Container>
-        )
-    }
+    return (
+        <Container style={{ paddingTop: "30px" }}>
+            <section>
+                <MDBRow>
+                    <MDBCol>
+                        <MDBCard className="w-100">
+                            <MDBCardBody className="p-4">
+                                <MDBTypography tag="h2">Criar novo gênero</MDBTypography>
+                                {errorMessage && <p style={{ textAlign: "center", color: "red" }}>{errorMessage}</p>}
+                                {successMessage && <p style={{ textAlign: "center", color: "green" }}>{successMessage}</p>}
+                                <Form onSubmit={handleSubmit}>
+                                    <div className="mb-3">
+                                        <label htmlFor="nome" className="form-label">Nome: </label>
+                                        <input
+                                            type="text"
+                                            id="nome"
+                                            value={nome}
+                                            onChange={handleInputChange}
+                                            required
+                                            className="form-control form-border"
+                                        />
+                                    </div>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
+                                        <Button type="submit" variant="outline-info">Criar</Button>
+                                    </div>
+                                </Form>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+            </section>
+        </Container>
+    )
+}

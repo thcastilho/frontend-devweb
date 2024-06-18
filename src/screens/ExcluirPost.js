@@ -3,7 +3,8 @@ import '../styles/ExcluirPost.modules.css'
 import { Rating } from '@mui/material';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { Row, Col, Button, Modal } from 'react-bootstrap';
+import { Row, Col, Container, Button, Modal } from 'react-bootstrap';
+import { MDBRow, MDBCard, MDBCardBody, MDBCol, MDBTypography } from "mdb-react-ui-kit"
 
 export default function ExcluirPost() {
     const [id, setId] = useState("");
@@ -57,28 +58,40 @@ export default function ExcluirPost() {
                 <Row className="music-container">
                     {singles.map(item => {
                         return (
-                            <div key={item.id}>
-                            <Row xs={12} sm={6} md={4} lg={3} className="music-item">
-                                <Col md={4} className="text-right">
-                                    <img src={item.image} alt={item.name} />
-                                </Col>
-                                <Col md={8}>
-                                    <Link to={`/post/${item.id}`} >
-                                        <p className="music-name">{item.name}</p>
-                                    </Link>
-                                    <p>{item.artist}</p>
-                                    <Rating
-                                        value={item.averageRating}
-                                        precision={0.5}
-                                        readOnly
-                                        max={5}
-                                    />
-                                </Col>
-                                <Col md={12}>
-                                    <Button variant="danger" onClick={() => {setId(item.id); setShowPopup(true)}} className='ms-2'>Excluir Post</Button>
-                                </Col>
-                            </Row>
-                            </div>
+                            <Container style={{ paddingTop: "30px" }}>
+                                <section>
+                                    <MDBRow>
+                                        <MDBCol>
+                                            <MDBCard className="w-100">
+                                                <MDBCardBody className="p-4">
+                                                    <div key={item.id}>
+                                                    <Row xs={12} sm={6} md={4} lg={3} className="music-item">
+                                                        <Col md={4} className="text-right">
+                                                            <img src={item.image} alt={item.name} />
+                                                        </Col>
+                                                        <Col md={8}>
+                                                            <Link to={`/post/${item.id}`} >
+                                                                <p className="music-name">{item.name}</p>
+                                                            </Link>
+                                                            <p>{item.artist}</p>
+                                                            <Rating
+                                                                value={item.averageRating}
+                                                                precision={0.5}
+                                                                readOnly
+                                                                max={5}
+                                                            />
+                                                        </Col>
+                                                        <Col md={12}>
+                                                            <Button variant="danger" onClick={() => {setId(item.id); setShowPopup(true)}} className='ms-2'>Excluir Post</Button>
+                                                        </Col>
+                                                    </Row>
+                                                    </div>
+                                                </MDBCardBody>
+                                            </MDBCard>
+                                        </MDBCol>
+                                    </MDBRow>
+                                </section>
+                            </Container>
                         );
                     })}
                 </Row>
@@ -86,28 +99,40 @@ export default function ExcluirPost() {
                 <h1 className="sub-title">Álbuns</h1>
                 <Row className="music-container">
                     {albuns.map(item => (
-                        <div key={item.id}>
-                        <Row xs={12} sm={6} md={4} lg={3} className="music-item">
-                            <Col md={4} className="text-right">
-                                <img src={item.image} alt={item.name} />
-                            </Col>
-                            <Col md={8} className="text-left">
-                                <Link to={`/post/${item.id}`} >
-                                    <p className="music-name">{item.name}</p>
-                                </Link>
-                                <p>{item.artist}</p>
-                                <Rating
-                                    value={item.averageRating}
-                                    precision={0.5}
-                                    readOnly
-                                    max={5}
-                                />
-                            </Col>
-                            <Col md={12}>
-                                <Button variant="danger" onClick={() => {setId(item.id); setShowPopup(true)}} className='ms-2'>Excluir Post</Button>
-                            </Col>
-                        </Row>
-                        </div>
+                        <Container style={{ paddingTop: "30px" }}>
+                        <section>
+                            <MDBRow>
+                                <MDBCol>
+                                    <MDBCard className="w-100">
+                                        <MDBCardBody className="p-4">
+                                                <div key={item.id}>
+                                                <Row xs={12} sm={6} md={4} lg={3} className="music-item">
+                                                    <Col md={4} className="text-right">
+                                                        <img src={item.image} alt={item.name} />
+                                                    </Col>
+                                                    <Col md={8} className="text-left">
+                                                        <Link to={`/post/${item.id}`} >
+                                                            <p className="music-name">{item.name}</p>
+                                                        </Link>
+                                                        <p>{item.artist}</p>
+                                                        <Rating
+                                                            value={item.averageRating}
+                                                            precision={0.5}
+                                                            readOnly
+                                                            max={5}
+                                                        />
+                                                    </Col>
+                                                    <Col md={12}>
+                                                        <Button variant="danger" onClick={() => {setId(item.id); setShowPopup(true)}} className='ms-2'>Excluir Post</Button>
+                                                    </Col>
+                                                </Row>
+                                                </div>
+                                            </MDBCardBody>
+                                            </MDBCard>
+                                        </MDBCol>
+                                    </MDBRow>
+                                </section>
+                            </Container>
                     ))}
                 </Row>
                 <p></p>
