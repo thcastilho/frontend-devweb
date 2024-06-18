@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import { MDBRow, MDBCard, MDBCardBody, MDBCol, MDBTypography } from "mdb-react-ui-kit"
+import { useNavigate } from "react-router-dom";
 
 export default function ExcluirGenero() {
     const [id, setId] = useState("");
@@ -11,6 +12,7 @@ export default function ExcluirGenero() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get("http://localhost:8080/generos/")
@@ -42,6 +44,10 @@ export default function ExcluirGenero() {
         }
 
     };
+
+    const handleBackClick = () => {
+        navigate("/admin-panel")
+    }
 
     return (
         <Container style={{ paddingTop: "30px" }}>
@@ -75,7 +81,9 @@ export default function ExcluirGenero() {
                                         );
                                     })}
                                 </Row>
-                                <p></p>
+                                <div class="d-grid gap-2 col-2 mx-auto">
+                                    <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
+                                </div>
                                 
                                 <Modal show={showPopup} onHide={() => setShowPopup(false)}>
                                     <Modal.Header closeButton>

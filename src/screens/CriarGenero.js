@@ -91,8 +91,8 @@ export default function CriarGenero() {
                                         />
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center">
-                                        <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
                                         <Button type="submit" variant="outline-info">Criar</Button>
+                                        <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
                                     </div>
                                 </Form>
                             </MDBCardBody>

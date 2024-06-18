@@ -77,7 +77,8 @@ const Avaliacoes = ({ avaliacoes }) => {
 
     const formatDate = (dateString) => {
         try {
-            const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
+            // const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
+            const parsedDate = new Date(dateString);
             if (isNaN(parsedDate)) {
                 throw new Error("Invalid date");
             }

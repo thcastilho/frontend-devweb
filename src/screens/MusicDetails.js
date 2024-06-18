@@ -101,7 +101,7 @@ export default function MusicDetails() {
                         <span className="topic">Artista</span>
                         <p>{data.artist}</p>
                         <span className="topic">Categoria</span>
-                        {data.categoria === "MUSICA" ? <p>Single</p> : <p>Álbum</p>}
+                        {data.categoria === "MUSICA" ? <p>Música</p> : <p>Álbum</p>}
                         <span className="topic">Data de lançamento</span>
                         <p>{format(new Date(data.publishDate), 'dd/MM/yyyy')}</p>
                         <span className="topic">Generos</span>

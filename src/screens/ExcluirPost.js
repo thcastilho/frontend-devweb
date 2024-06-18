@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { Row, Col, Container, Button, Modal } from 'react-bootstrap';
 import { MDBRow, MDBCard, MDBCardBody, MDBCol, MDBTypography } from "mdb-react-ui-kit"
+import { useNavigate } from "react-router-dom";
 
 export default function ExcluirPost() {
     const [id, setId] = useState("");
@@ -12,6 +13,7 @@ export default function ExcluirPost() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get("http://localhost:8080/posts/")
@@ -46,6 +48,10 @@ export default function ExcluirPost() {
         }
 
     };
+
+    const handleBackClick = () => {
+        navigate("/admin-panel")
+    }
 
     return (
         <>
@@ -135,7 +141,9 @@ export default function ExcluirPost() {
                             </Container>
                     ))}
                 </Row>
-                <p></p>
+                <div class="d-grid gap-2 col-2 mx-auto">
+                    <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
+                </div>
 
                 <Modal show={showPopup} onHide={() => setShowPopup(false)}>
                     <Modal.Header closeButton>

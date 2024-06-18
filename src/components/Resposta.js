@@ -6,21 +6,21 @@ import { format, parse } from "date-fns";
 const Resposta = ({ user, text, date, idResposta, currNumLikes, currNumDislikes }) => {
     const [numLikes, setNumLikes] = useState(currNumLikes);
     const [numDislikes, setNumDislikes] = useState(currNumDislikes);
-    const [fotoPerfil, setFotoPerfil] = useState("");
+    const [profileImageUrl, setProfileImageUrl] = useState(null);
 
     useEffect(() => {
-        const fetchUsuarioData = async (username) => {
+        const fetchUsuarioData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/usuarios/login/${username}`);
+                const response = await axios.get(`http://localhost:8080/usuarios/login/${user}`);
                 const userData = response.data;
-                const profileImageUrl = getProfileImageUrl(userData.sexo);
-                setFotoPerfil(profileImageUrl);
+                const avatarUrl = getProfileImageUrl(userData.sexo);
+                setProfileImageUrl(avatarUrl);
             } catch (error) {
-                console.error(`Erro ao carregar dados do usuário com ID ${username}: `, error);
+                console.error(`Erro ao carregar dados do usuário com ID ${user}: `, error);
             }
         };
 
-        fetchUsuarioData(user);
+        fetchUsuarioData();
     }, [user]);
 
     const getProfileImageUrl = (gender) => {
@@ -63,7 +63,8 @@ const Resposta = ({ user, text, date, idResposta, currNumLikes, currNumDislikes 
     };
 
     const formatDate = (dateString) => {
-        const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
+        // const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
+        const parsedDate = new Date(dateString);
         return format(parsedDate, 'dd/MM/yyyy HH:mm');
     };
 
@@ -73,7 +74,7 @@ const Resposta = ({ user, text, date, idResposta, currNumLikes, currNumDislikes 
                 <div>
                     <img
                         className="rounded-circle shadow-1-strong me-3"
-                        src={fotoPerfil}
+                        src={profileImageUrl}
                         alt="avatar"
                         width="65"
                         height="65"
