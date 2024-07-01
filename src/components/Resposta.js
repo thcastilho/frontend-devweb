@@ -63,8 +63,7 @@ const Resposta = ({ user, text, date, idResposta, currNumLikes, currNumDislikes 
     };
 
     const formatDate = (dateString) => {
-        // const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
-        const parsedDate = new Date(dateString);
+        const parsedDate = parse(dateString, 'dd/MM/yyyy HH:mm', new Date());
         return format(parsedDate, 'dd/MM/yyyy HH:mm');
     };
 
