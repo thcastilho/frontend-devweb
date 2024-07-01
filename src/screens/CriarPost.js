@@ -168,8 +168,8 @@ export default function CriarPost() {
                                             />
                                         </div>
                                         <div className="d-flex justify-content-between align-items-center">
-                                            <Button type="submit" variant="outline-info">Criar</Button>
                                             <Button variant="outline-secondary" onClick={handleBackClick}>Voltar</Button>
+                                            <Button type="submit" variant="outline-info">Criar</Button>
                                         </div>
                                     </Form>
                                 </div>
